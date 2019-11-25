@@ -53,9 +53,9 @@ export class EstudosComparativos {
           pont: sumPont,
       })
 
-      ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
+      this.ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
 
-      return ranking;
+      return this.ranking;
     });
   }
 
