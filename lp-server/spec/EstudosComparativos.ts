@@ -25,33 +25,37 @@ export class EstudosComparativos {
       let sumPont = 0;
       pesq.publicacoes.forEach((publi) => {
         let currentPont = 0
-        // consultar o qualis pra ver a avaliação pleo nome do journal
-        // pra cada avaliação, dá um valor, baseado em Pontos
-        if (publi.periodico == 'A1'){
+        let nota = Qualis.getClassificacao(publi.periodico)
+        if (nota == 'A1'){
           currentPont = this.pesos[0];
-        } else if (publi.periodico == 'A2') {
+        } else if (nota == 'A2') {
           currentPont = this.pesos[1];
-        } else if (publi.periodico == 'B1') {
+        } else if (nota == 'B1') {
           currentPont = this.pesos[2];
-        } else if (publi.periodico == 'B2') {
+        } else if (nota == 'B2') {
           currentPont = this.pesos[3];
-        } else if (publi.periodico == 'B3') {
+        } else if (nota == 'B3') {
           currentPont = this.pesos[4];
-        } else if (publi.periodico == 'B4') {
+        } else if (nota == 'B4') {
           currentPont = this.pesos[5];
-        } else if (publi.periodico == 'B5') {
+        } else if (nota == 'B5') {
           currentPont = this.pesos[6];
-        } else if (publi.periodico == 'C') {
+        } else if (nota == 'C') {
           currentPont = this.pesos[7];
         } else {
           currentPont = 0;
         }
         sumPont += currentPont;
       });
+      
       this.ranking.push({
-          pesqusador: pesq,
+          pesquisador: pesq,
           pont: sumPont,
       })
+
+      ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
+
+      return ranking;
     });
   }
 
