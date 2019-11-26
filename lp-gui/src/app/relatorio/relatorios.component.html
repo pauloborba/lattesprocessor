@@ -1,1 +1,32 @@
-html go here
+<!DOCTYPE html>
+ <html>
+ <head>
+     <meta charset="UTF-8"/>
+     <title>Document</title>
+ </head>
+<body>
+    <table  border=1 cellspacing=0 cellpadding=2>
+        <tr>
+            <th>Nome</th>
+            <th>A1</th>
+            <th>A2</th>
+            <th>B1</th>
+            <th>B2</th>
+            <th>B3</th>
+            <th>B4</th>
+            <th>B5</th>
+            <th>C</th>
+        </tr>
+        <tr *ngFor="let a of alunos" name="alunolist">
+            <td>{{a.nome}}</td>    
+            <td>{{a.a1}}</td>
+            <td>{{a.a2}}</td>
+            <td>{{a.b1}}</td>
+            <td>{{a.b2}}</td>
+            <td>{{a.b3}}</td>
+            <td>{{a.b4}}</td>
+            <td>{{a.b5}}</td>
+            <td>{{a.c}}</td>
+        </tr>
+</body>
+</html>
