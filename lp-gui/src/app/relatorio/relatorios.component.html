@@ -6,7 +6,7 @@
  </head>
 <body>
     <table  border=1 cellspacing=0 cellpadding=2>
-        <tr>
+        <tr *ngIf="pesquisadores.length > 0">
             <th>Nome</th>
             <th>A1</th>
             <th>A2</th>
@@ -17,7 +17,7 @@
             <th>B5</th>
             <th>C</th>
         </tr>
-        <tr *ngFor="let a of alunos" name="alunolist">
+        <tr *ngFor="let a of pesquisadores" name="pesquisadoreslist">
             <td>{{a.nome}}</td>    
             <td>{{a.a1}}</td>
             <td>{{a.a2}}</td>
