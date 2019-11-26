@@ -1,3 +1,7 @@
+import {Pesquisador} from '../common/pesquisador';
+import {CadastroDePesquisadores} from '../lp-server/cadastrodepesquisadores';
+import {Qualis} from '../common/qualis';
+
 export class EstudosComparativos {
   pesos: number[] = [1, 1, 1, 1, 1, 1, 1, 1];
   ranking = []
@@ -16,12 +20,12 @@ export class EstudosComparativos {
   }
 
   ordenar(): Pesquisador[] {
-    let ordenado: Pesquisador[] = RepPesquisadores.getLista();
+    let ordenado: Pesquisador[] = CadastroDePesquisadores.getLista();
     ordenado.forEach((pesq) => {
       let sumPont = 0;
       pesq.publicacoes.forEach((publi) => {
         let currentPont = 0
-        let nota = Qualis.getClassificacao(publi.periodico)
+        let nota = Qualis.getAvaliacao(publi.periodico)
         if (nota == 'A1'){
           currentPont = this.pesos[0];
         } else if (nota == 'A2') {
@@ -49,10 +53,10 @@ export class EstudosComparativos {
           pont: sumPont,
       })
 
-      this.ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
-
-      return this.ranking;
     });
+    this.ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
+
+    return this.ranking;
   }
 
   /*
