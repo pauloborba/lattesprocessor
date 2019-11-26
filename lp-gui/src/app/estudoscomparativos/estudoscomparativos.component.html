@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" (mousemove)="onMove()">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Estudos Comparativos</title>
-    <link rel="stylesheet" href="estudoscomparativos.component.css">
+    
 </head>
 <body>
     <h1>Estudos Comparativos</h1>
+    <p class="xlsausente" name="xlsausente">XLS não carregado</p>
+    <p class="xlspresente" name="xlspresente">XLS carregado</p>
+    
     <h2>Escolha o método de comparação:</h2>
     <input type="radio" name="metodo" value="quantidade" checked="true"> Quantidade de Artigos <br>
     <input type="radio" name="metodo" value="pesos" id="pesoscheck"> Critérios de Avaliação Personalizados <br>
@@ -23,5 +23,17 @@
             <input type="text" name="c" placeholder="C" size="2" class="inputpeso">
     </div>
     <input type="submit" value="Gerar Ranking">
+    <table>
+        <tr *ngIf="pesquisadores.length > 0">
+            <th>Posição</th>
+            <th>Nome</th>
+            <th>Pontuação</th>
+        </tr>
+        <tr *ngFor="let p of pesquisadores; let i = index" name="listapesquisadores">
+            <td name="posicaolista">{{ i }}</td>
+            <td name="nomelista">{{p.nome}}</td>
+            <td name="pontuacaolista">{{p.pontos}}</td>
+        </tr>
+    </table>
 </body>
 </html>

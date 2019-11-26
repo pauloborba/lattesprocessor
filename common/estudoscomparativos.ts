@@ -50,23 +50,14 @@ export class EstudosComparativos {
       
       this.ranking.push({
           pesquisador: pesq,
-          pont: sumPont,
+          pontos: sumPont,
       })
 
     });
-    this.ranking.sort((a, b) => (a.pont > b.pont) ? 1 : (a.pont == b.pont) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
+    this.ranking.sort((a, b) => (a.pontos > b.pontos) ? 1 : (a.pontos == b.pontos) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
 
     return this.ranking;
   }
-
-  /*
-  {
-    nome: String,
-    journal: String,
-    ...
-  }
-  */
-
 
 
 
