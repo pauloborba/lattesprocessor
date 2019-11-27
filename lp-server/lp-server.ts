@@ -32,6 +32,10 @@ lpserver.get('/estudos-comparativos', (req: express.Request, res: express.Respon
   let pesos: number[] = [1, 1, 1, 1, 1, 1, 1, 1];
   let ranking: any = [];
 
+  if(typeof pesos[0] != "number"||typeof pesos[1] != "number"||typeof pesos[2] != "number" || typeof pesos[3] != "number"|| typeof pesos[4] != "number"|| typeof pesos[5] != "number"|| typeof pesos[6] != "number"|| typeof pesos[7] != "number"){
+    res.send("Pesos inválidos");
+  }
+
   pesquisadores.forEach((pesq: any) => {
     let sumPont = 0;
     pesq.publicacoes.forEach((publi: any) => {
