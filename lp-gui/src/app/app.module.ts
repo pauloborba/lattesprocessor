@@ -6,7 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
+ 
 // add project imports
 
 @NgModule({
@@ -24,13 +26,17 @@ import { AppComponent } from './app.component';
     HttpClientModule, 
     RouterModule.forRoot([
       /*{
-        path: 'metas',
-        component: MetasComponent
+        path: '/',
+        component: AppComponent
       },
       {
         path: 'alunos',
         component: AlunosComponent
       } */
+      {
+        path: 'relatorio',
+        component: RelatorioComponent 
+      }
     ])
   ],
   providers: [/*PesquisadorService*/],

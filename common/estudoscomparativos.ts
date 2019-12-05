@@ -1,5 +1,7 @@
 export class EstudosComparativos {
-    // add atributes here
+  quantidade: Int16Array[];  
+  
+  // add atributes here
 
     // add methods here
   }
