@@ -16,7 +16,11 @@ export class RelatorioService {
   // methods go here
 
   sendAvaliacao(file: Pesquisador[]): Observable<boolean>{
-    return this.http.post<any>(this.taURL + /relatorio, file,{headers: this.headers})
+    return this.http.post<any>(this.taURL + "/relatorio", file, {headers: this.headers})
+      .pipe(
+        retry(2)
+       // map(res => {if (res.success) {return true;} else {return false;}})
+      );
   }
 
 }
