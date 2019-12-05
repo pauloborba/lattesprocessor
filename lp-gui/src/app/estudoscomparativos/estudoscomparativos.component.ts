@@ -1,3 +1,4 @@
+import { Component, OnInit } from '@angular/core';
 import { Pesquisador } from '../../../../common/pesquisador';
 
 @Component({

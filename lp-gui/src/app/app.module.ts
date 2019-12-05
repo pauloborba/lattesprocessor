@@ -6,13 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { estudoscomparativosComponent } from './estudoscomparativos/estudoscomparativos.component';
 
 // add project imports
 
 @NgModule({
   
   declarations: [
-    AppComponent
+    AppComponent,
+    estudoscomparativosComponent
     //,
     //MetasComponent,
     //AlunosComponent
@@ -23,6 +25,10 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpClientModule, 
     RouterModule.forRoot([
+      {
+        path: 'e',
+        component: estudoscomparativosComponent
+      }
       /*{
         path: 'metas',
         component: MetasComponent
