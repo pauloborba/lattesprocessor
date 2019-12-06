@@ -1,11 +1,12 @@
-<html (mousemove)="onMove()">
+<html >
  <head>
      <meta charset="UTF-8"/>
-     <title>Relatório</title>
+     <title *ngIf="relatorio.length > 0">Relatório</title>
+     <title *ngIf="relatorio.length == 0">Empty</title>
  </head>
 <body>
-    <table  border=1 cellspacing=0 cellpadding=2>
-        <tr *ngIf="pesquisadores.length > 0">
+    <table  border=1 cellspacing=0 cellpadding=20>
+        <tr *ngIf="relatorio.length > 0">
             <th>Nome</th>
             <th>A1</th>
             <th>A2</th>
@@ -16,9 +17,19 @@
             <th>B5</th>
             <th>C</th>
         </tr>
-        <tr *ngFor="let a of pesquisadores" name="pesquisadoreslist">
-            <td>{{a.nome}}</td>    
-            <td>{{a}}</td>
+        <!--<tr *ngFor="let a of relatorio" name="pesquisadoreslist">
+                <td>{{a[0]}}</td>
+                <td>{{a[1]}</td>
+                <td>{{a[2]}}</td>
+                <td>{{a[3]}}</td>
+                <td>{{a[4]}}</td>
+                <td>{{a[5]}}</td>
+                <td>{{a[6]}}</td>
+                <td>{{a[7]}}</td>
+                <td>{{a[8]}}</td>
+            </tr>-->
+        <tr *ngFor="let a of relatorio" name="pesquisadoreslist">
+            <td>{{a.nome}}</td>
             <td>{{a.publicacoes[0]}}</td>
             <td>{{a.publicacoes[1]}}</td>
             <td>{{a.publicacoes[2]}}</td>
@@ -26,6 +37,8 @@
             <td>{{a.publicacoes[4]}}</td>
             <td>{{a.publicacoes[5]}}</td>
             <td>{{a.publicacoes[6]}}</td>
+            <td>{{a.publicacoes[7]}}</td>
         </tr>
+    </table>
 </body>
 </html>

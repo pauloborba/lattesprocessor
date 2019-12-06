@@ -14,7 +14,8 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 @NgModule({
   
   declarations: [
-    AppComponent
+    AppComponent,
+    RelatorioComponent
     //,
     //MetasComponent,
     //AlunosComponent

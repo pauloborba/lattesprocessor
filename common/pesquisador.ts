@@ -10,7 +10,7 @@ export class Pesquisador {
   }
 
   clean(): void {
-    this.nome = "Gab";
+    this.nome = "";
     this.orgao = "";
     this.publicacoes = [];
   }
