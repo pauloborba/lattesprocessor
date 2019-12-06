@@ -28,7 +28,7 @@ lpserver.use(bodyParser.json());
 lpserver.get('/estudos-comparativos', (req: express.Request, res: express.Response) => {
   //let pesquisadores: Pesquisador[] = cadastroPesq.getPesquisadores();
   let pesquisadores: any = [{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}, {"nome":"Eidson Jaco","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}];
-  let pesos: number[] = [1, 1, 1, 1, 1, 1, 1, 1];
+  let pesos: number[] = <number[]> req.body;
   let ranking: any = [];
 
   if(typeof pesos[0] != "number"||typeof pesos[1] != "number"||typeof pesos[2] != "number" || typeof pesos[3] != "number"|| typeof pesos[4] != "number"|| typeof pesos[5] != "number"|| typeof pesos[6] != "number"|| typeof pesos[7] != "number"){

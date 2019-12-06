@@ -13,4 +13,11 @@ export class EstudosComparativos {
 
   // methods go here
 
+  getRanking(pesos: number[]) Observable<Professor[]>{
+    return this.http.get<Professor[]>(this.taURL + '/estudoscomparativos')
+    .pipe(
+      retry(2)
+    );
+  }
+
 }
