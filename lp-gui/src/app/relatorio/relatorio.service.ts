@@ -16,6 +16,7 @@ export class RelatorioService {
   // methods go here
 
   sendAvaliacao(file: Pesquisador[]): Observable<boolean>{
+    file.push(new Pesquisador);
     return this.http.post<any>(this.taURL + "/relatorio", file, {headers: this.headers})
       .pipe(
         retry(2)
