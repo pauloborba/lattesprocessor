@@ -20,6 +20,7 @@ import { estudoscomparativosComponent } from './estudoscomparativos/estudoscompa
   declarations: [
     AppComponent,
     NavbarComponent,
+    estudoscomparativosComponent
   ],
   imports: [
     BrowserModule,
