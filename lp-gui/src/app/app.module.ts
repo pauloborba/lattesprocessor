@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PesquisadorService } from './pesquisador/pesquisador.service';
 import { estudoscomparativosComponent } from './estudoscomparativos/estudoscomparativos.component';
+import { EstudosComparativosService } from './estudoscomparativos/estudoscomparativos.service'
 
 // add project imports
 
@@ -50,7 +51,7 @@ import { estudoscomparativosComponent } from './estudoscomparativos/estudoscompa
       } */
     ]), BrowserAnimationsModule
   ],
-  providers: [PesquisadorService],
+  providers: [PesquisadorService, EstudosComparativosService],
   bootstrap: [AppComponent]
 
 })

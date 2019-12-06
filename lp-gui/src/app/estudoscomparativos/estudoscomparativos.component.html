@@ -33,7 +33,7 @@
             <th>Nome</th>
             <th>Pontuação</th>
         </tr>
-        <tr *ngIf="pesquisadores.length > 0" *ngFor="let p of pesquisadores; let i = index" name="listapesquisadores">
+        <tr *ngFor="let p of pesquisadores; let i = index" name="listapesquisadores">
             <td name="posicaolista">{{ i }}</td>
             <td name="nomelista">{{p.nome}}</td>
             <td name="pontuacaolista">{{p.pontos}}</td>
