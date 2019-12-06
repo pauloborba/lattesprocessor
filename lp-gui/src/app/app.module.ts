@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PesquisadorService } from './pesquisador/pesquisador.service';
 import { PesquisadoresComponent } from './pesquisador/pesquisadores.component';
 import { ImportLattesComponent } from './pesquisador/importLattes.component';
+import { estudoscomparativosComponent } from './estudoscomparativos/estudoscomparativos.component';
 
 // add project imports
 
@@ -32,14 +33,18 @@ import { ImportLattesComponent } from './pesquisador/importLattes.component';
     MatButtonModule,
     MatIconModule,
     RouterModule.forRoot([
-      {
-        path: 'pesquisadores',
-        component: PesquisadoresComponent
-      },
-      {
-        path: 'importar',
-        component: ImportLattesComponent
-      }
+     {
+       path: 'estudoscomparativos',
+       component: estudoscomparativosComponent
+     }    
+      // {
+      //   path: 'pesquisadores',
+      //   component: PesquisadoresComponent
+      // },
+      // {
+      //   path: 'importar',
+      //   component: ImportLattesComponent
+      // }
       /*{
         path: 'metas',
         component: MetasComponent

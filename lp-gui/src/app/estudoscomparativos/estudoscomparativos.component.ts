@@ -24,5 +24,7 @@ export class estudoscomparativosComponent {
             this.xlscarregado = false;
         }
      }
+
+     passarPesos
 }
 
