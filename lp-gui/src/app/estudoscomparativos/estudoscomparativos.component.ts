@@ -12,6 +12,7 @@ export class estudoscomparativosComponent {
 
     tabela: Pesquisador[] =  [];
     xlscarregado: boolean = false;
+    pesos: number[] = [1,1,1,1,1,1,1,1];
 
     onMove(): void {
         let xls: boolean = false;
@@ -25,7 +26,7 @@ export class estudoscomparativosComponent {
         }
      }
 
-     gerarEstudo():void{
+     gerarEstudo(): void{
         if (!this.xlscarregado) {
           alert('nenhum arquivo carregado');
         }else{
@@ -33,6 +34,8 @@ export class estudoscomparativosComponent {
         }
      }
 
-     passarPesos
+     setPadrao(): void{
+        this.pesos = [1,1,1,1,1,1,1];
+     }
 }
 
