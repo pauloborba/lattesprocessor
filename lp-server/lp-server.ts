@@ -5,9 +5,10 @@ import bodyParser = require("body-parser");
 
 import { CadastroDePesquisadores } from './cadastrodepesquisadores';
 import { Pesquisador } from '../common/pesquisador';
+import { Qualis } from '../common/qualis';
 
 var lpserver = express();
-let cadatroPesq = new CadastroDePesquisadores();
+let cadastroPesq = new CadastroDePesquisadores();
 
 
 // add services here
@@ -26,8 +27,8 @@ lpserver.use(bodyParser.json());
 // add reqs here
 
 lpserver.get('/estudos-comparativos', (req: express.Request, res: express.Response) => {
-  //let pesquisadores: Pesquisador[] = cadastroPesq.getPesquisadores();
-  let pesquisadores: any = [{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}, {"nome":"Eidson Jaco","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}];
+  let pesquisadores: Pesquisador[] = cadastroPesq.getPesquisadores();
+  //let pesquisadores: any = [{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}, {"nome":"Eidson Jaco","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"An Operational Semantics for FOOPS","periodico":"Information Systems Correctness And Reusability (ISCORE 1994)"}]}];
   let pesos: number[] = <number[]> req.body;
   let ranking: any = [];
 
@@ -39,22 +40,22 @@ lpserver.get('/estudos-comparativos', (req: express.Request, res: express.Respon
     let sumPont = 0;
     pesq.publicacoes.forEach((publi: any) => {
       let currentPont = 0
-      //let nota = Qualis.getAvaliacao(publi.periodico)
-      let nota;
-      // inicio codigo imbecil para teste
-        if (publi.periodico == "I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"){
-          nota = 'A2'
-        }
-        else if (publi.periodico == "Information Systems Correctness And Reusability (ISCORE 1994)"){
-          nota = 'A1'
-        }
-        else if (publi.periodico == "I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"){
-          nota = 'C'
-        }
-        else if (publi.periodico == "Information Systems Correctness And Reusability (ISCORE 1994)"){
-          nota = 'B2'
-        }
-      // fim codigo imbecil para teste
+      let nota = Qualis.getAvaliacao(publi.periodico)
+      // let nota;
+      // // inicio codigo imbecil para teste
+      //   if (publi.periodico == "I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"){
+      //     nota = 'A2'
+      //   }
+      //   else if (publi.periodico == "Information Systems Correctness And Reusability (ISCORE 1994)"){
+      //     nota = 'A1'
+      //   }
+      //   else if (publi.periodico == "I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"){
+      //     nota = 'C'
+      //   }
+      //   else if (publi.periodico == "Information Systems Correctness And Reusability (ISCORE 1994)"){
+      //     nota = 'B2'
+      //   }
+      // // fim codigo imbecil para teste
 
       if (nota == 'A1'){
         currentPont = pesos[0];
@@ -84,7 +85,7 @@ lpserver.get('/estudos-comparativos', (req: express.Request, res: express.Respon
     })
 
   });
-  ranking.sort((a: any, b: any) => (a.pontos > b.pontos) ? 1 : (a.pontos == b.pontos) ? ((a.pesquisador.nome > b.pesquisador.nome) ? 1 : -1) : -1)
+  ranking.sort((a: any, b: any) => (a.pontos > b.pontos) ? 1 : (a.pontos == b.pontos) ? ((a.pesquisador > b.pesquisador) ? 1 : -1) : -1)
 
   res.send(ranking)
 })
