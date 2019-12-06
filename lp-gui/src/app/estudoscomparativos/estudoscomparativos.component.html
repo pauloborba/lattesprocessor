@@ -22,7 +22,7 @@
             <input type="text" name="b5" placeholder="B5" size="2" class="inputpeso">
             <input type="text" name="c" placeholder="C" size="2" class="inputpeso">
     </div>
-    <input type="submit" value="Gerar Ranking">
+    <button (click)="gerarEstudo()">Gerar Ranking </button>
     <table>
         <tr *ngIf="pesquisadores.length > 0">
             <th>Posição</th>

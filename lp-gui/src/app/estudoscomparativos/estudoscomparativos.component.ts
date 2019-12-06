@@ -25,6 +25,14 @@ export class estudoscomparativosComponent {
         }
      }
 
+     gerarEstudo():void{
+        if (!this.xlscarregado) {
+          alert('nenhum arquivo carregado');
+        }else{
+            //gerar estudo
+        }
+     }
+
      passarPesos
 }
 
