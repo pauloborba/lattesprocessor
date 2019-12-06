@@ -3,8 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
+import { Pesquisador } from '../../../../common/pesquisador';
+
 @Injectable()
-export class EstudosComparativos {
+export class EstudosComparativosService {
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private taURL = 'http://localhost:3000';
@@ -13,8 +15,8 @@ export class EstudosComparativos {
 
   // methods go here
 
-  getRanking(pesos: number[]) Observable<Professor[]>{
-    return this.http.get<Professor[]>(this.taURL + '/estudoscomparativos')
+  getRanking(pesos: number[]): Observable<Pesquisador[]>{
+    return this.http.get<Pesquisador[]>(this.taURL + '/estudoscomparativos')
     .pipe(
       retry(2)
     );

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pesquisador } from '../../../../common/pesquisador';
+import { EstudosComparativosService } from './estudoscomparativos.service'
 
 @Component({
     selector: 'app-root',
@@ -13,6 +14,8 @@ export class estudoscomparativosComponent {
     tabela: Pesquisador[] =  [];
     xlscarregado: boolean = false;
     pesos: number[] = [1,1,1,1,1,1,1,1];
+
+    constructor(private ecService: EstudosComparativosService) {}
 
     onMove(): void {
         let xls: boolean = false;
@@ -30,7 +33,7 @@ export class estudoscomparativosComponent {
         if (!this.xlscarregado) {
           alert('nenhum arquivo carregado');
         }else{
-            //gerar estudo
+            this.ecService.getRanking(this.pesos);
         }
      }
 
