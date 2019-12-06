@@ -3,7 +3,6 @@ import bodyParser = require("body-parser");
 
 // add imports here
 
-import {EstudosComparativos} from '../common/estudoscomparativos';
 import { CadastroDePesquisadores } from './cadastrodepesquisadores';
 import { Pesquisador } from '../common/pesquisador';
 
