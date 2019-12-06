@@ -6,8 +6,12 @@
 </head>
 <body>
     <h1>Estudos Comparativos</h1>
-    <p class="xlsausente" name="xlsausente">XLS não carregado</p>
-    <p class="xlspresente" name="xlspresente">XLS carregado</p>
+    <div *ngIf="!xlscarregado">
+        <p class="xlsausente" name="xlsausente">XLS não carregado</p>
+    </div>
+    <div *ngIf="xlscarregado">
+        <p class="xlspresente" name="xlspresente">XLS carregado</p>
+    </div>
     
     <h2>Escolha o método de comparação:</h2>
     <input type="radio" name="metodo" value="quantidade" checked="true"> Quantidade de Artigos <br>
@@ -22,7 +26,7 @@
             <input type="text" name="b5" placeholder="B5" size="2" class="inputpeso">
             <input type="text" name="c" placeholder="C" size="2" class="inputpeso">
     </div>
-    <button (click)="gerarEstudo()">Gerar Ranking </button>
+    <button (click)="gerarEstudo()">Gerar Ranking</button>
     <table>
         <tr *ngIf="pesquisadores.length > 0">
             <th>Posição</th>
