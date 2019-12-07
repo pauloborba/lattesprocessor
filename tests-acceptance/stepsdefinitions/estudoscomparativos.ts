@@ -1,5 +1,10 @@
 import { defineSupportCode } from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by } from 'protractor';
+
+import { CadastroDePesquisadores } from './cadastrodepesquisadores';
+import { Pesquisador } from '../common/pesquisador;
+import { Publicacao } from '../common/publicacao'
+
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
@@ -15,22 +20,30 @@ defineSupportCode(function ({ Given, And, When, Then }) {
     });
 
     And(/^O professor "([^\"]*)" tem "(\d*)" artigos e o professor "([^\"]*)" tem "(\d*)" artigos”$/, async (prof1, qtd1, prof2, qtd2) => {
-        var profs: ElementArrayFinder = element.all(by.name('professores'));
-        await profs.filter(elem => pAND(mesmoNome(elem, prof1), mesmaQtd(elem, qtd1))).then
-                    (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1))
-        await profs.filter(elem => pAND(mesmoNome(elem, prof2), mesmaQtd(elem, qtd2))).then
-                    (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1))
+        let cadastroPesq = new CadastroDePesquisadores();
+        let p1: Pesquisador = new Pesquisador();
+        p1.nome = prof1;
+        for (var i = 0; i < qtd1; i++){
+            let p: Publicacao = new Publicacao('a', 'a')
+            p1.addPublicacao(p);
+        }
+        let p2: Pesquisador = new Pesquisador();
+        p2.nome = prof2;
+        for (var i = 0; i < qtd2; i++){
+            let p: Publicacao = new Publicacao('a', 'a')
+            p2.addPublicacao(p);
+        }
     });
 
-    And(/^Eu escolho o método “quantidade de artigos””$/, async () => {
+    When(/^Eu escolho o método “quantidade de artigos””$/, async () => {
         await $("input[name='CriteriosPersonalizados'").click();
     });
 
-    When(/^Eu gero o ranking$/, async () => {
+    And(/^Eu gero o ranking$/, async () => {
         await $("button[name='gerarRanking']").click();
     });
 
-    Then(/^"([^\"]*)" fica na primeira linha com "(\d*)" artigos e "([^\"]*)" na segunda com "(\d*)" artigos.$/, async (prof1, qtd1, prof2, qtd2) => {
+    Then(/^"([^\"]*)" fica na primeira linha com "(\d*)" pontos e "([^\"]*)" na segunda com "(\d*)" pontos.$/, async (prof1, qtd1, prof2, qtd2) => {
         var lista: ElementArrayFinder = element.all(by.name('listaProfs'));
         await expect(lista[0].nome.to.eventually.equal(prof1));
         await expect(lista[0].qtd.to.eventually.equal(qtd1));
@@ -42,7 +55,7 @@ defineSupportCode(function ({ Given, And, When, Then }) {
         
     });
 
-    And(/^Eu escolho o método “critérios de avaliação personalizados”$/, async () => {
+    When(/^Eu escolho o método “critérios de avaliação personalizados”$/, async () => {
         await $("input[name='CriteriosPersonalizados'").click();
     });
 
@@ -57,7 +70,4 @@ defineSupportCode(function ({ Given, And, When, Then }) {
         await $("input[name='c']").sendKeys(C);
     });
 
-    Then(/^"([^\"]*)" fica na primeira linha com "(\d*)" pontos e "([^\"]*)" na segunda com "(\d*)" pontos, por ordem de prioridade.$/, async (prof1, pontos1, prof2, pontos2) => {
-        
-    });
 }) 
