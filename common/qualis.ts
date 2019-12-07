@@ -8,6 +8,10 @@ export class Qualis {
     clean() {
         this.avaliacao = new Map<string,string>();
     }
+
+    getAvaliacao(periodico: String){
+        
+    }
     
     //add methods here
   }
