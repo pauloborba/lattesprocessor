@@ -49,6 +49,24 @@ defineSupportCode(function ({ Given, When, Then }) {
         await expect(msg.getText()).toEqual('Pesos inválidos');
     });
 
-    
+    Given(/^estou na página de “estudos comparativos”$/, async () => {
+        await browser.get("http://localhost:4200/");
+        await expect(browser.getTitle()).to.eventually.equal('LattesProcessor');
+        await $("a[name='estudosComparativos']").click();
+    });
+
+    Given(/^o atributo “arquivo xml” está como “nenhum arquivo carregado”$/, async () => {
+        var status_xml: ElementArrayFinder = element.all(by.name("xlsausente"));
+	    await expect(status_xml.text).to.eventually.equal('nenhum arquivo carregado');
+    });
+
+    When(/^eu seleciono a opção “quantidade de artigos”$/, async () => {
+        await $("a[value='quantidade']").click();
+    });
+
+    Then(/^eu vejo uma mensagem informando que nenhum arquivo .xml foi carregado$/, async () => {
+        let msg:Alert = browser.switchTo().alert();
+        await expect(msg.getText()).toEqual('nenhum arquivo carregado');
+    });
 
 }) 
