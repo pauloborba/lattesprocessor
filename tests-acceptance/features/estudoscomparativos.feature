@@ -33,3 +33,9 @@ And O professor “Sílvio” tem “3” artigos “A1”, 2 artigo “A2” e 
 When Eu escolho o método “critérios de avaliação personalizados”
 And Eu gero o ranking
 Then Paulo” fica na primeira linha com “44” pontos e “Sílvio” na segunda com “29” pontos.
+
+Scenario:Ranqueamento sem arquivo XML carregado
+Given estou na página de “estudos comparativos”
+And o atributo “arquivo xml” está como “nenhum arquivo carregado”
+When eu seleciono a opção “quantidade de artigos”
+Then eu vejo uma mensagem informando que nenhum arquivo .xml foi carregado
