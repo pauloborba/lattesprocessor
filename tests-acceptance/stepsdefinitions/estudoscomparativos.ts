@@ -69,4 +69,36 @@ defineSupportCode(function ({ Given, When, Then }) {
         await expect(msg.getText()).toEqual('nenhum arquivo carregado');
     });
 
+    Given(/^estou na página de “estudos comparativos”$/, async () => {
+        await browser.get("http://localhost:4200/");
+        await expect(browser.getTitle()).to.eventually.equal('LattesProcessor');
+        await $("a[name='estudosComparativos']").click();
+    });
+
+
+    //não faz sentido considerar o 2 como variavel se sempre vai ter só 2 nomes em seguida...
+    //considerando que qtd1 = qtd2
+    Given(/^"2" arquivos .xml contendo "([^\"]*)" com "(\d*)" artigos e "([^\"]*)" com "(\d*)" artigos$/, async (prof1,qtd1,prof2,qtd2) => {
+        var status_xml: ElementArrayFinder = element.all(by.name('xlspresente'));
+        await expect(status_xml.text).to.eventually.equal('true');
+        var professor_list: ElementArrayFinder = element.all(by.name('professores'));
+        await professor_list.filter(elem => pAND(mesmoNome(elem, prof1), mesmaQtd(elem, qtd1))).then
+                    (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1))
+        await professor_list.filter(elem => pAND(mesmoNome(elem, prof2), mesmaQtd(elem, qtd2))).then
+                    (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1))
+    });
+
+    When(/^eu seleciono a opção “quantidade de artigos”$/, async () => {
+        await $("a[value='quantidade']").click();
+    });
+
+    Then(/^eu vejo uma tabela de ranking, onde "([^\"]*)" com "(\d*)" artigos está acima de "([^\"]*)" com "(\d*)" artigos$/, async (prof1,qtd1,prof2,qtd2) => {
+        var rank_list: ElementArrayFinder = element.all(by.name('rank_list'));
+        await expect(Promise.resolve(rank_list[0].nome)).to.eventually.equal(prof1)
+        await expect(Promise.resolve(rank_list[1].nome)).to.eventually.equal(prof2)
+        await expect(Promise.resolve(rank_list[0].qtd)).to.eventually.equal(qtd1)
+        await expect(Promise.resolve(rank_list[1].qtd)).to.eventually.equal(qtd2)
+
+    });
+
 }) 
