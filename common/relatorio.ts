@@ -1,5 +1,13 @@
 export class Relatorio {
-    // add atributes here
+    nome : string;
+    qualis: number[];
 
-    // add methods here
+    constructor(name: string){
+      this.clean(name);
+    }
+
+    clean(name: string): void {
+      this.nome = name;
+      this.qualis = [0,0,0,0,0,0,0,0];
+    }
   }
