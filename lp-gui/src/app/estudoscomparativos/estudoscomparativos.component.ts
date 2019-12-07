@@ -13,7 +13,7 @@ export class estudoscomparativosComponent {
 
     tabela: Pesquisador[] =  [];
     xlscarregado: boolean = false;
-    pesos: number[] = [1,1,1,1,1,1,1,1];
+    pesos: any[] = [1,1,1,1,1,1,1,1];
 
     constructor(private ecService: EstudosComparativosService) {}
 
@@ -29,7 +29,21 @@ export class estudoscomparativosComponent {
         }
      }
 
+     pesosInvalidos():boolean{
+         for(let i = 0; i<8;i++){
+             if(isNaN(Number(this.pesos[i]))){
+                 return true;
+             }
+         }
+         return false;
+     }
+     
+
      gerarEstudo(): void{
+        if(this.pesosInvalidos()){
+            alert('Pesos inválidos');
+            return;
+        }
         if (!this.xlscarregado) {
           alert('nenhum arquivo carregado');
         }else{

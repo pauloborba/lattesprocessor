@@ -17,14 +17,14 @@
     <input type="radio" click="setPadrao()" name="metodo" value="quantidade" checked="true"> Quantidade de Artigos <br>
     <input type="radio" name="metodo" value="pesos" id="pesoscheck"> Critérios de Avaliação Personalizados <br>
     <div class="pesosmarcado">
-            <input [(ngModel)] = "pesos[0]" type="text" name="a1" placeholder="A1" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[1]" type="text" name="a2" placeholder="A2" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[2]" type="text" name="b1" placeholder="B1" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[3]" type="text" name="b2" placeholder="B2" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[4]" type="text" name="b3" placeholder="B3" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[5]" type="text" name="b4" placeholder="B4" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[6]" type="text" name="b5" placeholder="B5" size="2" class="inputpeso">
-            <input [(ngModel)] = "pesos[7]" type="text" name="c" placeholder="C" size="2" class="inputpeso">
+            <input [(ngModel)] = "pesos[0]" type="text" name="a1" placeholder="A1" size="2" class="inputpeso" id="0">
+            <input [(ngModel)] = "pesos[1]" type="text" name="a2" placeholder="A2" size="2" class="inputpeso" id="1">
+            <input [(ngModel)] = "pesos[2]" type="text" name="b1" placeholder="B1" size="2" class="inputpeso" id="2">
+            <input [(ngModel)] = "pesos[3]" type="text" name="b2" placeholder="B2" size="2" class="inputpeso" id="3">
+            <input [(ngModel)] = "pesos[4]" type="text" name="b3" placeholder="B3" size="2" class="inputpeso" id="4">
+            <input [(ngModel)] = "pesos[5]" type="text" name="b4" placeholder="B4" size="2" class="inputpeso" id="5">
+            <input [(ngModel)] = "pesos[6]" type="text" name="b5" placeholder="B5" size="2" class="inputpeso" id="6">
+            <input [(ngModel)] = "pesos[7]" type="text" name="c" placeholder="C" size="2" class="inputpeso" id="7">
     </div>
     <button (click)="gerarEstudo()">Gerar Ranking</button>
     <table>
