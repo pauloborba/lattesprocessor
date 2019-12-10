@@ -2,24 +2,22 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Qualis } from '../../../../common/qualis';
 import { Pesquisador } from '../../../../common/pesquisador';
 import { Relatorio } from '../../../../common/relatorio';
-import { EstudosComparativos } from '../estudoscomparativos/estudoscomparativos.service';
+import { Observable } from 'rxjs';
+import { EstudosComparativosService } from '../estudoscomparativos/estudoscomparativos.service';
 import { QualisService } from '../qualis/qualis.service';
+import { stringify } from 'querystring';
 @Component({
   selector: 'app-import',
   templateUrl:'./relatorios.component.html',
   styleUrls: ['./relatorios.component.css']
 })
 export class RelatorioComponent implements OnInit {
-  //constructor(estudoService: EstudosComparativos) {}
-    relatorio : Pesquisador[];
-    avaliacoes : Relatorio[]/* = [
-      new Relatorio("Data Structures"),
-      new Relatorio("User Interfaces"),
-      new Relatorio("Number Theory")
-    ];/**/
- //comentario acima usado para testar o funcionamento, uma vez que ainda não foi conectado às outras partes;
-
-  getId(qualisVal: string): number{
+  estudoService: EstudosComparativosService;
+  qualisService: QualisService;
+  relatorio : Pesquisador[];
+  avaliacoes : Relatorio[];
+  
+  getId(qualisVal: String): number{
     var a = 0;
     if(qualisVal == 'A1') a = 0;
     else if(qualisVal == 'A2') a = 1;
@@ -30,29 +28,29 @@ export class RelatorioComponent implements OnInit {
     else if(qualisVal == 'B5') a = 6;
     else if(qualisVal == 'C') a = 7;
     return a;
-  }/*
-
-  clear(): void{
-    this.relatorio = [];
-    this.avaliacoes = [];
   }
-  setSimulation(): void{
-    this.avaliacoes = [];
-  }*/
-  
-  getArray(): void { //Ainda falta integrar estudoService (getPesquisadores) e QualisService (getAvaliacao)
-    
-    //this.avaliacoes[1].qualis[2] += 1;
 
-    /**/this.estudoService.getRanking()
-      .then(as => this.relatorio = as)
-      .catch(erro => alert(erro));/**/
-    /**/
+  getArray(): void {
+
+    this.estudoService.getRanking([])
+      .subscribe(
+        as => this.relatorio = as,
+        error => alert(error)
+      );
+    
     for(let i = 0; i < this.relatorio.length; ++i){
       this.avaliacoes.push(new Relatorio(this.relatorio[i].nome));
       var ultimaAvaliacao = this.avaliacoes.length-1;
       for(let j = 0; j < this.relatorio[i].publicacoes.length; ++j){
-        var id = this.getId(QualisService.getAvaliacao(this.relatorio[i].publicacoes[j].titulo)); //falta pegar o qualis
+        var conceito : String;
+        
+        this.qualisService.getAvaliacao(this.relatorio[i].publicacoes[j].titulo)
+          .subscribe(
+            el => conceito = el,
+            error => alert(error)
+          );
+
+        var id = this.getId(conceito);
         this.avaliacoes[ultimaAvaliacao].qualis[id] += 1;
       }
     }
