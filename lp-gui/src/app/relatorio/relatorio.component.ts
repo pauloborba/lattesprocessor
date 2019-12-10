@@ -12,8 +12,7 @@ import { stringify } from 'querystring';
   styleUrls: ['./relatorios.component.css']
 })
 export class RelatorioComponent implements OnInit {
-  estudoService: EstudosComparativosService;
-  qualisService: QualisService;
+  constructor(private estudoService: EstudosComparativosService, private qualisService: QualisService) {}
   relatorio : Pesquisador[];
   avaliacoes : Relatorio[];
   
