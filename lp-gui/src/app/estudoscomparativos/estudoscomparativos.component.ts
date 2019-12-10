@@ -47,7 +47,7 @@ export class estudoscomparativosComponent {
         if (!this.xlscarregado) {
           alert('nenhum arquivo carregado');
         }else{
-            this.ecService.getRanking(this.pesos);
+            this.tabela = this.ecService.getRanking(this.pesos);
         }
      }
 
