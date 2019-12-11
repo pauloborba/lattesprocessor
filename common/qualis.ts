@@ -22,7 +22,10 @@ export class Qualis {
     }
 
     getAvaliacao(periodico : string) : string {
-        return this.tabela.get(periodico).avaliacao;
+        if (this.assertKey(periodico)) {
+            return this.tabela.get(periodico).avaliacao;
+        }
+        return null;
     }
 
     getIssn(periodico : string) : string {
