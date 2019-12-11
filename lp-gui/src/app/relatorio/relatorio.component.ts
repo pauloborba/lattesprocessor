@@ -43,7 +43,7 @@ export class RelatorioComponent implements OnInit {
       for(let j = 0; j < this.relatorio[i].publicacoes.length; ++j){
         var conceito : String;
         
-        this.qualisService.getAvaliacao(this.relatorio[i].publicacoes[j].titulo)
+        this.qualisService.getAvaliacao(this.relatorio[i].publicacoes[j].periodico)
           .subscribe(
             el => conceito = el,
             error => alert(error)
