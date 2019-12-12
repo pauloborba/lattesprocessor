@@ -1,0 +1,4 @@
+compiledCode/
+uploads/
+*.js
+*.js.map
