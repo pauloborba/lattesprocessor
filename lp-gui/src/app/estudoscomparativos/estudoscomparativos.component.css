@@ -1,1 +1,26 @@
-/* css go here */
+.pesosmarcado {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+input[id="pesoscheck"]:checked ~ .pesosmarcado {
+  opacity: 1;
+  max-height: 100px; 
+  overflow: visible;
+}
+
+.table-print {
+  display: none;
+}
+
+@media print {
+  .table-print {
+    display: block;
+  }
+
+  .view {
+    display: none;
+  }
+}
