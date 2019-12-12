@@ -37,7 +37,7 @@ lpserver.post('/pesquisador/adicionar', upload.array('lattesFiles', 12), (req: e
   let error = false;
 
   for(let i = 0; i < req.files.length; i++) {
-    let xml_string = fs.readFileSync(req.files[i].path, 'utf8');
+    let xml_string = fs.readFileSync(req.files[i].path, 'binary');
     let p =  lattesFactory.importLattes(xml_string);
 
     if(p === null) {
