@@ -44,6 +44,5 @@ defineSupportCode( ({ Given, When, Then }) => {
 
     //Cenario 2:
 
-    
 
 });
