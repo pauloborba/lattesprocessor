@@ -1,0 +1,84 @@
+h1 {
+    margin-left: 200px;
+}
+
+div#cadastro h2 {
+    margin-left: 20px;
+}
+
+div#cadastro {
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+div#grupos h2 {
+    margin-left: 20px;
+} 
+
+div.main {
+    display: flex;
+    flex-direction: row;
+}
+
+h2[name="nomelist"] {
+    display: flex;
+}
+
+div#cadastro {
+    width: 48%;
+    min-width: 250px;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+
+div#grupos {
+    width: 48%;
+    min-width: 250px;
+    margin-left: 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div#grupo h4 {
+    margin-left: 10px;
+}
+
+div#grupo button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+div#grupo {
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+td.errorMsg {
+    color: red;
+}
+
+div#groupHeader {
+    display: flex;
+    flex-direction: row;
+}
+
+div#groupHeader button {
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    background-color: #c91d06d5;
+}
+
+div#groupHeader button#add {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: blue;
+}
+
+button {
+    margin-left: 10px;
+    background-color: #2bcc38d5;
+}
+

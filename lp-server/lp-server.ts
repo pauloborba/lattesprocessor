@@ -9,11 +9,15 @@ const fs = require('fs');
 import { QualisFactory } from './qualisfactory';
 import { Qualis } from '../common/qualis';
 import { CadastroDePesquisadores } from './cadastrodepesquisadores';
+import { CadastroDeGrupos } from './cadastrodegrupos';
 import { LattesFactory } from './lattesFactory';
 import { Pesquisador } from '../common/pesquisador';
+import { Grupo } from '../common/grupo';
+import e = require('express');
 
 var lpserver = express();
 let cadatroPesq = new CadastroDePesquisadores();
+let cadastroGrupos = new CadastroDeGrupos();
 const lattesFactory = new LattesFactory(cadatroPesq);
 
 // add services here
@@ -173,8 +177,56 @@ lpserver.get('/estudos-comparativos/', (req: express.Request, res: express.Respo
   res.send(ranking)
 })
 
+// GRUPOS
+
+lpserver.get('/grupos', (req: express.Request, res: express.Response) => {
+  res.send(JSON.stringify(cadastroGrupos.getGrupos()));
+})
+
+lpserver.post('/grupos/grupo', (req: express.Request, res: express.Response) => {
+  let grupo: Grupo = <Grupo> req.body;
+  grupo = cadastroGrupos.addGrupo(grupo);
+  if (grupo) {
+    res.send({success: "O grupo foi criado com sucesso"});
+  } else {
+    res.send({failure: "O grupo não pode ser criado"});
+  }
+})
+
+lpserver.put('/grupos/:nome', (req: express.Request, res: express.Response) => {
+  let nome = req.params.nome;
+  let pesquisador = <Pesquisador> req.body;
+  let grupos = cadastroGrupos.addPesquisador(nome, pesquisador);
+  if (grupos) {
+    res.send({success: "O pesquisador foi inserido no grupo com sucesso"});
+  } else {
+    res.send({failure: "O pesquisador não pode ser inserido no grupo"});
+  }
+})
+
+lpserver.put('/grupos/pesquisadores/:nome', (req: express.Request, res: express.Response) => {
+  let nome = req.params.nome;
+  let integrantesAdd = <Pesquisador[]> req.body;
+  integrantesAdd = cadastroGrupos.adicionarPesquisadores(integrantesAdd, nome);
+  if (integrantesAdd) {
+    return res.send({ success: "Os pesquisadores foram inseridos no grupo com sucesso"});
+  } else {
+    return res.send({ failure: "Os pesquisadores nao puderam ser inseridos no grupo"});
+  }
+})
+
+lpserver.delete('/grupos/delete/:id', (req: express.Request, res: express.Response) => {
+  let nome = req.params.id;
+  let grupo = cadastroGrupos.removerGrupo(nome);
+  if (grupo) {
+    return res.send({ success: "O grupo foi removido com sucesso"});
+  } else {
+    return res.send({ failure: " O grupo nao pode ser inserido"});
+  }
+})
+
 var server = lpserver.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 3000!');
 })
 
 function closeServer(): void {

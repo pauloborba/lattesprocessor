@@ -3,9 +3,10 @@
   "description": "Testes de aceitação do Lattes Processos",
   "scripts": {
     "tsc": "./node_modules/typescript/bin/tsc",
-    "test": "npm run tsc && protractor compiledCode/config/config.js",
-    "webdriver-update": "webdriver-manager update",
-    "webdriver-start": "webdriver-manager start"
+    "test": "npm run tsc && protractor compiledCode/tests-acceptance/config/config.js",
+    "webdriver-clean": "webdriver-manager clean",
+    "webdriver-update": "webdriver-manager update --standalone --versions.standalone=3.8.0",
+    "webdriver-start": "webdriver-manager start --versions.standalone=3.8.0"
   },
   "author": "ejas, mbmt, tbm2, vdj, gbc7",
   "devDependencies": {
