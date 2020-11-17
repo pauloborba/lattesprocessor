@@ -1,21 +1,60 @@
-<form method="post">
-    <input type="file" name="QualisFile" id="file" ng-file-model="files" accept=".xls,.xlsx" (change)="setFile($event.target.files)">
-    <button name="Qualis Import" (click)="sendFile()"> Qualis Import</button>
-    <button name="Clear Qualis" (click)="clearQualis()"> Clear Qualis</button>
-    <p name="ImportStatus" *ngIf="statusReport"> {{importStatus}} </p>
-</form>
+<div (mousemove)="onMove()" class="qualis-container">
+  <div id="form-container">
 
-<html (mousemove)="onMove()">        
-    <table>
-        <tr *ngIf="qualisTable.tabela.length > 0">
+    <span class="input-container">
+      <label for="QualisFile"> arquivo: </label>
+      <input type="file" name="QualisFile" id="file" ng-file-model="files" accept=".xls,.xlsx" (change)="setFile($event.target.files)">
+    </span>
+
+    <span class="input-container">
+      <label for="typeQualis"> Tipo: </label>
+      <select id="typeQualis" [(ngModel)]="typeQualisForm">
+        <option value="Evento">Evento</option>
+        <option value="Periodico">Periodico</option>
+      </select>
+    </span>
+
+    <span class="input-container">
+      <label for="year"> ano: </label>
+      <input id="year" [(ngModel)]="yearQualisForm">
+    </span>
+
+      <button name="Qualis Import" (click)="sendQualis()"> Qualis Import</button>
+      <p name="ImportStatus" *ngIf="statusReport"> {{importStatus}} </p>
+
+  </div>
+    
+    <table *ngIf="qualisTable && qualisTable.length > 0">
+      <h2>Qualis</h2>
+      <span>
+        Anos:
+        <select class="select-filter" id="filterYear" [(ngModel)]="yearQualisFilter" (change)="filter()">
+          <option value=""> Todos </option>
+          <option *ngFor="let y of yearsFilter" value="{{y}}"> {{ y }} </option>
+        </select>
+        Tipos:
+        <select class="select-filter" id="filterType" [(ngModel)]="typeQualisFilter" (change)="filter()">
+          <option value="" selected> Todos </option>
+          <option *ngFor="let t of typesFilter" value="{{t}}"> {{ t }} </option>
+        </select>
+        <span id="clean-button" (click)="remove()">
+          excluir
+        </span>
+      </span> 
+      <tr>
         <th>Periódico</th>
         <th>ISSN</th>
         <th>Avaliação</th>
-        </tr>
-        <tr *ngFor="let e of qualisTable.tabela | keyvalue" name="qualisTable" class="qualisTable-container">
-            <td name="allNomes">{{ e.value[0] }}</td>
-            <td name="allIssn">{{ e.value[1].issn }}</td>
-            <td name="allAvaliacoes">{{ e.value[1].avaliacao }}</td>
-        </tr>
+        <th>Ano </th>
+        <th>Tipo </th>
+      </tr>
+      <tr *ngFor="let q of qualis" name="qualisTable" class="qualisTable-container">
+        <td name="allNomes"> {{ q.titulo }} </td>
+        <td class="center" name="allIssn"> {{ q.issn }} </td>
+        <td class="center" name="allAvaliacoes"> {{ q.avaliacao }} </td>
+        <td class="center" name="allAnos">{{ q.ano }}</td>
+        <td class="center" name="alltipos">{{ q.tipo }}</td>
+      </tr>
     </table>
-</html>
+
+</div>

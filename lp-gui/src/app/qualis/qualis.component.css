@@ -1,1 +1,20 @@
-/*css go here*/
+.input-container {
+  margin-right: 20px;
+}
+
+td {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+td.center {
+  text-align: center;
+}
+
+td:first-letter {
+  text-transform:capitalize;
+}
+
+.select-filter {
+  margin-right: 15px;
+}
