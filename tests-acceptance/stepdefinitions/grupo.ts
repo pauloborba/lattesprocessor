@@ -8,7 +8,7 @@ let assertSizeEquals = async (set, n) => {
     await set.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(n));
 }
 
-let assertElementsWithSameName = async (n, name) => {
+let assertGroupsWithSameName = async (n, name) => {
     let allgrupos: ElementArrayFinder = element.all(by.name('grupolist'));
     let samenames = allgrupos.filter(elem => sameName(elem, name));
     await assertSizeEquals(samenames, n);
@@ -31,7 +31,7 @@ defineSupportCode( ({ Given, When, Then }) => {
     });
 
     Given(/^nao existe um grupo de "([^\"]*)" cadastrado no sistema$/, async (grupo) => {
-        await assertElementsWithSameName(0, grupo);
+        await assertGroupsWithSameName(0, grupo);
     });
 
     When(/^eu crio o grupo "([^\"]*)"$/, async (grupo) => {
@@ -39,10 +39,15 @@ defineSupportCode( ({ Given, When, Then }) => {
     });
 
     Then(/^eu posso ver o grupo "([^\"]*)"$/, async (grupo) => {
-        await assertElementsWithSameName(1, grupo);
+        await assertGroupsWithSameName(1, grupo);
     });
 
     //Cenario 2:
+    Given(/^existe o grupo "([^\"]*)" no sistema$/, async (grupo) => {
+        await criarGrupo(grupo);
+        await assertGroupsWithSameName(1, grupo);
+    }); 
 
+    
 
 });

@@ -14,7 +14,7 @@ export let config: Config = {
     frameworkPath: require.resolve('protractor-cucumber-framework'),
 
     specs: [
-        '../../features/grupos.feature'
+        '../../features/*.feature'
     ],
 
     onPrepare: () => {
@@ -30,3 +30,4 @@ export let config: Config = {
         require: ['../../stepdefinitions/*.ts'],
     }
 };
+

@@ -1,23 +1,27 @@
+Feature: Grupos
+    As a usuario
+    I Want To cadastrar e remover grupos 
+    So That I possa inserir um ou mais pesquisadores nestes grupos
+
 Scenario: Formação bem-sucedida de um grupo
     Given eu estou na página de grupos
     Given nao existe um grupo de "Centro de Informatica" cadastrado no sistema
     When eu crio o grupo "Centro de Informatica"
     Then eu posso ver o grupo "Centro de Informatica"
 
-Scenario: Insercao bem-sucedida de usuários em um grupo
-    Given eu estou na página de grupos
-    Given vejo o grupo "Centro de Informatica"
-    Given o pesquisador "Paulo Henrique Monteiro Borba" esta cadastrado no sistema
-    Given nao existe o pesquisador "Paulo Henrique Monteiro Borba" no grupo "Centro de Informatica"
-    When eu tento inserir "Paulo Henrique Monteiro Borba" do grupo "Centro de Informatica"
-    Then eu posso ver no grupo "Centro de Informatica" o pesquisador "Paulo Henrique Monteiro Borba"
-
-# Scenario: Remoção bem-sucedida de um grupo
+# Scenario: Insercao bem-sucedida de usuários em um grupo
 #     Given eu estou na página de grupos
-#     And existe o grupo “Engenharia de Software” no sistema
-#     When eu removo o grupo “Engenharia de Software” do sistema
-#     Then eu recebo uma mensagem de confirmação
-#     And não existe mais o grupo “Engenharia de Software” no sistema
+#     Given vejo o grupo "Centro de Informatica"
+#     Given o pesquisador "Paulo Henrique Monteiro Borba" esta cadastrado no sistema
+#     Given nao existe o pesquisador "Paulo Henrique Monteiro Borba" no grupo "Centro de Informatica"
+#     When eu tento inserir "Paulo Henrique Monteiro Borba" do grupo "Centro de Informatica"
+#     Then eu posso ver no grupo "Centro de Informatica" o pesquisador "Paulo Henrique Monteiro Borba"
+
+Scenario: Remoção bem-sucedida de um grupo
+     Given eu estou na página de grupos
+     Given existe o grupo "Engenharia de Software" no sistema
+     #When eu  tento remover o grupo "Engenharia de Software" do sistema
+     #Then não existe mais o grupo "Engenharia de Software" no sistema
 
 # Scenario: Formação bem-sucedida de um grupo a partir outros  grupos existentes
 #     Given eu estou na página de grupos
