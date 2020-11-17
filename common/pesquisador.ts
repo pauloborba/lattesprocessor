@@ -1,29 +1,26 @@
 import { Publicacao } from './publicacao';
 
 export class Pesquisador {
-  nome: string;
-  orgao: string;
-  publicacoes: Publicacao[];
+    nome: string;
+    publicacoes: Publicacao[];
 
-  constructor() {
-    this.clean();
-  }
+    constructor() {
+        this.clean();
+    }
 
-  clean(): void {
-    this.nome = "";
-    this.orgao = "";
-    this.publicacoes = [];
-  }
+    clean(): void {
+        this.nome = "";
+        this.publicacoes = [];
+    }
 
-  copyFrom(p: Pesquisador): Pesquisador {
-    this.nome = p.nome;
-    this.orgao = p.orgao;
-    this.publicacoes = p.publicacoes;
-    return this;
-  }
-  
-  addPublicacao(p: Publicacao): Pesquisador{
-    this.publicacoes.push(p);
-    return this;
-  }
+    copyFrom(p: Pesquisador): Pesquisador {
+        this.nome = p.nome;
+        this.publicacoes = p.publicacoes;
+        return this;
+    }
+
+    addPublicacao(p: Publicacao): Pesquisador {
+        this.publicacoes.push(p);
+        return this;
+    }
 }

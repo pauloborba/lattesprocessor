@@ -1,0 +1,23 @@
+.uploads {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.cadastro, .atualizacao {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nome {
+  font-weight: bolder;
+}
+
+.publicacao {
+  font-style: italic;
+}
+/*# sourceMappingURL=pesquisadores.component.css.map */

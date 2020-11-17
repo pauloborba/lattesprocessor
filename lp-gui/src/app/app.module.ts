@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule }   from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,24 +9,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatIconModule } from '@angular/material';
 
-import { estudoscomparativosComponent } from './estudoscomparativos/estudoscomparativos.component';
-import { EstudosComparativosService } from './estudoscomparativos/estudoscomparativos.service';
-
-import { NavbarComponent } from './navbar/navbar.component';
-import { PesquisadorService } from './pesquisador/pesquisador.service';
-import { ImportLattesComponent } from './pesquisador/importLattes.component';
-
-import { QualisComponent } from './qualis/qualis.component'
-import { QualisService } from './qualis/qualis.service';
-// add project imports
+import { PesquisadoresComponent } from './pesquisadores/pesquisadores.component';
+import { PesquisadoresService } from './pesquisadores/pesquisadores.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QualisComponent,
-    NavbarComponent,
-    ImportLattesComponent,
-    estudoscomparativosComponent
+    PesquisadoresComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,19 +27,11 @@ import { QualisService } from './qualis/qualis.service';
     RouterModule.forRoot([
       {
         path: 'pesquisadores',
-        component: ImportLattesComponent
-      },
-      {
-        path: 'qualis',
-        component: QualisComponent
-      },
-      {
-        path: 'estudoscomparativos',
-        component: estudoscomparativosComponent
+        component: PesquisadoresComponent
       }
     ]), BrowserAnimationsModule
   ],
-  providers: [QualisService, PesquisadorService, EstudosComparativosService],
+  providers: [PesquisadoresService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

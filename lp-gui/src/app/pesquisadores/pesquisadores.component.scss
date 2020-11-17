@@ -1,0 +1,16 @@
+.uploads {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cadastro, .atualizacao {
+    align-items: center;
+}
+
+.nome {
+    font-weight: bolder;
+}
+
+.publicacao {
+    font-style: italic;
+}

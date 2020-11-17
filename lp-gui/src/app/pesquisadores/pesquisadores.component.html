@@ -1,0 +1,34 @@
+<div class="uploads">
+    <div class="cadastro">
+        <h2>Cadastrar pesquisador</h2>
+        <form method="post">
+            <input type="file" name="cadastrar" ng-file-model="files" accept=".xml"
+                (change)="uploadLattes($event.target.files)" multiple>
+        </form>
+        <p *ngIf="pesquisadorCadastrado == 'sucesso'" class="msg">Pesquisador cadastrado com sucesso!</p>
+        <p *ngIf="pesquisadorCadastrado == 'erro'" class="msg">O pesquisador não pode ser cadastrado!</p>
+    </div>
+
+    <div class="atualizacao">
+        <h2>Atualizar currículo</h2>
+        <form method="post">
+            <input type="file" name="atualizar" ng-file-model="file" accept=".xml"
+                (change)="updateLattes($event.target.file)">
+        </form>
+        <p *ngIf="pesquisadorAtualizado == 'sucesso'" class="msg">Pesquisador atualizado com sucesso!</p>
+        <p *ngIf="pesquisadorAtualizado == 'erro'" class="msg">O pesquisador não pode ser atualizado!</p>
+    </div>
+
+</div>
+
+<div class="pesquisadoreslist">
+    <h2>Lista de pesquisadores cadastrados</h2>
+    <div *ngFor="let p of pesquisadores">
+        <p class="nome">{{ p.nome }}</p>
+        <ul *ngFor="let publi of p.publicacoes">
+            <li attr.parent="{{ p.nome }}">
+                <p class="publicacao">{{ publi.titulo }}, {{ publi.periodico }}</p>
+            </li>
+        </ul>
+    </div>
+</div>
