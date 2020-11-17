@@ -17,11 +17,11 @@ Scenario: Insercao bem-sucedida de usuários em um grupo
     When eu tento inserir "Paulo Henrique Monteiro Borba" no grupo "Centro de Informatica"
     Then eu posso ver no grupo "Centro de Informatica" o pesquisador "Paulo Henrique Monteiro Borba"
 
-# Scenario: Remoção bem-sucedida de um grupo
-#      Given eu estou na página de grupos
-#      Given existe o grupo "Engenharia de Software" no sistema
-#      #When eu  tento remover o grupo "Engenharia de Software" do sistema
-     #Then não existe mais o grupo "Engenharia de Software" no sistema
+Scenario: Remoção bem-sucedida de um grupo
+    Given eu estou na página de grupos
+    Given existe o grupo "Centro de Informatica" no sistema
+    When eu tento remover o grupo "Centro de Informatica" do sistema
+    Then não existe mais o grupo "Centro de Informatica" no sistema
 
 # Scenario: Formação bem-sucedida de um grupo a partir outros  grupos existentes
 #     Given eu estou na página de grupos

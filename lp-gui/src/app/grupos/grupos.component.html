@@ -43,7 +43,7 @@
                         <p *ngIf="g2 != g">{{g2.nome}}</p>
                     </option>
                 </select>
-                <button (click)="removerGrupo(g)">Excluir Grupo</button>
+                <button name="remover-grupo" (click)="removerGrupo(g)">Excluir Grupo</button>
             </div>
             <h4 *ngIf="g.integrantes.length > 0">Integrantes</h4>
             <ol>

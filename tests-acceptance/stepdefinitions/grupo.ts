@@ -50,7 +50,7 @@ let criarGrupo = async (nome) => {
 }
 
 let removerGrupo = async (nome) => {
-
+    await $("button[name='remover-grupo']").click();
 }
 
 defineSupportCode( ({ Given, When, Then }) => {
@@ -106,13 +106,16 @@ defineSupportCode( ({ Given, When, Then }) => {
 
     //Cenario 3:
     Given(/^existe o grupo "([^\"]*)" no sistema$/, async (grupo) => {
-        await criarGrupo(grupo);
         await assertGroupsWithSameName(1, grupo);
     });
     
     When(/^eu tento remover o grupo "([^\"]*)" do sistema$/, async (grupo) => {
-        
         await removerGrupo(grupo);
+    });
+
+    Then(/^não existe mais o grupo "([^\"]*)" no sistema$/, async (grupo) => {
+        await assertGroupsWithSameName(0, grupo);
+        
     });
 
     
