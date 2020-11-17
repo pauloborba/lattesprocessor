@@ -1,13 +1,14 @@
 {
-  "name": "testes-acceptance",
-  "description": "Testes de aceitação do Lattes Processos",
+  "name": "tests-acceptance",
+  "description": "Testes de aceitação",
   "scripts": {
     "tsc": "./node_modules/typescript/bin/tsc",
-    "test": "npm run tsc && protractor compiledCode/config/config.js",
-    "webdriver-update": "webdriver-manager update",
-    "webdriver-start": "webdriver-manager start"
+    "test": "npx tsc && protractor compiledCode/config/config.js",
+    "webdriver-clean": "webdriver-manager clean",
+    "webdriver-update": "webdriver-manager update --standalone --versions.standalone=3.8.0",
+    "webdriver-start": "webdriver-manager start --versions.standalone=3.8.0"
   },
-  "author": "ejas, mbmt, tbm2, vdj, gbc7",
+  "author": "Paulo Borba",
   "devDependencies": {
     "@types/cucumber": "0.0.38",
     "@types/node": "^8.0.31",
@@ -15,17 +16,14 @@
     "chai": "^4.0.2",
     "chai-as-promised": "^7.0.0",
     "cucumber": "^2.3.0",
-    "cucumber-html-reporter": "^4.0.5",
     "mkdirp": "^0.5.1",
-    "protractor": "^5.1.2",
     "protractor-cucumber-framework": "^3.1.1",
-    "typescript": "^2.9.2",
-    "ts-node": "^3.1.0",
-    "request": "^2.34",
-    "request-promise": "^4.2.2",
-    "@types/request-promise": "^4.1.38"
+    "typescript": "^2.9.2"
   },
   "dependencies": {
-    "path": "^0.12.7"
+    "cucumber-html-reporter": "^4.0.5",
+    "protractor": "^5.1.2",
+    "terser": "^3.14.1",
+    "ts-node": "^3.1.0"
   }
 }

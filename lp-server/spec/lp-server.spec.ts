@@ -1,181 +1,375 @@
+import e = require("express");
 import request = require("request-promise");
-
-const fs = require('fs');
-let path = require('path');
-
-import { CadastroDePesquisadores } from '../cadastrodepesquisadores';
-import { Pesquisador } from '../../common/pesquisador';
+import { closeServer } from '../lp-server';
+import { Relatorio } from '../../common/relatorio'
+import { Pesquisador } from '../../common/pesquisador'
+import { Publicacao } from '../../common/publicacao'
+import { Qualis } from '../../common/Qualis'
+import bodyParser = require("body-parser");
 
 var base_url = "http://localhost:3000/";
 
+function gerarRelatorio(p1: string, p2: string, p3: string, n1: string, n2: string, n3: string, n4: string, n5: string, n6: string, n7: string, n8: string, n9: string, n10: string, ai: number, af: number): Relatorio {
+    var pesq1 = new Pesquisador();
+    var pesq2 = new Pesquisador();
+    var pesq3 = new Pesquisador();
+
+    pesq1.nome = p1
+    pesq2.nome = p2
+    pesq3.nome = p3
+    let pesq1p1 = new Publicacao();
+    let pesq1p2 = new Publicacao();
+    let pesq1p3 = new Publicacao();
+    let pesq2p1 = new Publicacao();
+    let pesq2p2 = new Publicacao();
+    let pesq2p3 = new Publicacao();
+    let pesq3p1 = new Publicacao();
+    let pesq3p2 = new Publicacao();
+    let pesq3p3 = new Publicacao();
+    let pesq3p4 = new Publicacao();
+    pesq1.publicacoes.push(pesq1p1)
+    pesq1.publicacoes.push(pesq1p2)
+    pesq1.publicacoes.push(pesq1p3)
+    pesq2.publicacoes.push(pesq2p1)
+    pesq2.publicacoes.push(pesq2p2)
+    pesq2.publicacoes.push(pesq2p3)
+    pesq3.publicacoes.push(pesq3p1)
+    pesq3.publicacoes.push(pesq3p2)
+    pesq3.publicacoes.push(pesq3p3)
+    pesq3.publicacoes.push(pesq3p4)
+    pesq1p1.titulo = "Publicacao A"
+    pesq1p2.titulo = "Publicacao B"
+    pesq1p3.titulo = "Publicacao C"
+    pesq1p1.periodico = "Publicacao AAA"
+    pesq1p2.periodico = "Publicacao BBB"
+    pesq1p3.periodico = "Publicacao CCC"
+    pesq1p1.issn = "0001"
+    pesq1p2.issn = "0002"
+    pesq1p3.issn = "0003"
+    pesq2p1.titulo = "Publicacao D"
+    pesq2p2.titulo = "Publicacao E"
+    pesq2p3.titulo = "Publicacao F"
+    pesq2p1.periodico = "Publicacao DDD"
+    pesq2p2.periodico = "Publicacao EEE"
+    pesq2p3.periodico = "Publicacao FFF"
+    pesq2p1.issn = "0004"
+    pesq2p2.issn = "0005"
+    pesq2p3.issn = "0006"
+    pesq3p1.titulo = "Publicacao G"
+    pesq3p2.titulo = "Publicacao H"
+    pesq3p3.titulo = "Publicacao I"
+    pesq3p1.periodico = "Publicacao GGG"
+    pesq3p2.periodico = "Publicacao HHH"
+    pesq3p3.periodico = "Publicacao III"
+    pesq3p1.issn = "0007"
+    pesq3p2.issn = "0008"
+    pesq3p3.issn = "0009"
+    pesq3p4.titulo = "Publicacao J"
+    pesq3p4.periodico = "Publicacao JJJ"
+    pesq3p4.issn = "0010"
+    var qualis: Qualis[] = [];
+    let pesq1q1 = new Qualis();
+    let pesq1q2 = new Qualis();
+    let pesq1q3 = new Qualis();
+    let pesq2q1 = new Qualis();
+    let pesq2q2 = new Qualis();
+    let pesq2q3 = new Qualis();
+    let pesq3q1 = new Qualis();
+    let pesq3q2 = new Qualis();
+    let pesq3q3 = new Qualis();
+    let pesq3q4 = new Qualis();
+    pesq1q1.montar("Publicacao A", 11, "Estudo", "0001", n1)
+    pesq1q2.montar("Publicacao B", 12, "Estudo", "0002", n2)
+    pesq1q3.montar("Publicacao C", 13, "Estudo", "0003", n3)
+    pesq2q1.montar("Publicacao D", 14, "Estudo", "0004", n4)
+    pesq2q2.montar("Publicacao E", 15, "Estudo", "0005", n5)
+    pesq2q3.montar("Publicacao F", 16, "Estudo", "0006", n6)
+    pesq3q1.montar("Publicacao G", 17, "Estudo", "0007", n7)
+    pesq3q2.montar("Publicacao H", 18, "Estudo", "0008", n8)
+    pesq3q3.montar("Publicacao I", 19, "Estudo", "0009", n9)
+    pesq3q4.montar("Publicacao J", 20, "Estudo", "0010", n10)
+    qualis.push(pesq1q1)
+    qualis.push(pesq1q2)
+    qualis.push(pesq1q3)
+    qualis.push(pesq2q1)
+    qualis.push(pesq2q2)
+    qualis.push(pesq2q3)
+    qualis.push(pesq3q1)
+    qualis.push(pesq3q2)
+    qualis.push(pesq3q3)
+    qualis.push(pesq3q4);
+
+    var relatorio = new Relatorio();
+    relatorio.dataInicial = ai;
+    relatorio.dataFinal = af;
+    relatorio.pesquisadores.push(pesq1);
+    relatorio.pesquisadores.push(pesq2);
+    relatorio.pesquisadores.push(pesq3);
+    relatorio.generate(qualis);
+    
+
+
+
+    return relatorio;
+}
+function montarRelatorio(p1: string, p2: string, p3: string): Relatorio {
+    var pesq1 = new Pesquisador();
+    var pesq2 = new Pesquisador();
+    var pesq3 = new Pesquisador();
+
+    pesq1.nome = p1
+    pesq2.nome = p2
+    pesq3.nome = p3
+    let pesq1p1 = new Publicacao();
+    let pesq1p2 = new Publicacao();
+    let pesq1p3 = new Publicacao();
+    let pesq2p1 = new Publicacao();
+    let pesq2p2 = new Publicacao();
+    let pesq2p3 = new Publicacao();
+    let pesq3p1 = new Publicacao();
+    let pesq3p2 = new Publicacao();
+    let pesq3p3 = new Publicacao();
+    let pesq3p4 = new Publicacao();
+    pesq1.publicacoes.push(pesq1p1)
+    pesq1.publicacoes.push(pesq1p2)
+    pesq1.publicacoes.push(pesq1p3)
+    pesq2.publicacoes.push(pesq2p1)
+    pesq2.publicacoes.push(pesq2p2)
+    pesq2.publicacoes.push(pesq2p3)
+    pesq3.publicacoes.push(pesq3p1)
+    pesq3.publicacoes.push(pesq3p2)
+    pesq3.publicacoes.push(pesq3p3)
+    pesq3.publicacoes.push(pesq3p4)
+    pesq1p1.titulo = "Publicacao A"
+    pesq1p2.titulo = "Publicacao B"
+    pesq1p3.titulo = "Publicacao C"
+    pesq1p1.periodico = "Publicacao AAA"
+    pesq1p2.periodico = "Publicacao BBB"
+    pesq1p3.periodico = "Publicacao CCC"
+    pesq1p1.issn = "0001"
+    pesq1p2.issn = "0002"
+    pesq1p3.issn = "0003"
+    pesq2p1.titulo = "Publicacao D"
+    pesq2p2.titulo = "Publicacao E"
+    pesq2p3.titulo = "Publicacao F"
+    pesq2p1.periodico = "Publicacao DDD"
+    pesq2p2.periodico = "Publicacao EEE"
+    pesq2p3.periodico = "Publicacao FFF"
+    pesq2p1.issn = "0004"
+    pesq2p2.issn = "0005"
+    pesq2p3.issn = "0006"
+    pesq3p1.titulo = "Publicacao G"
+    pesq3p2.titulo = "Publicacao H"
+    pesq3p3.titulo = "Publicacao I"
+    pesq3p1.periodico = "Publicacao GGG"
+    pesq3p2.periodico = "Publicacao HHH"
+    pesq3p3.periodico = "Publicacao III"
+    pesq3p1.issn = "0007"
+    pesq3p2.issn = "0008"
+    pesq3p3.issn = "0009"
+    pesq3p4.titulo = "Publicacao J"
+    pesq3p4.periodico = "Publicacao JJJ"
+    pesq3p4.issn = "0010"
+    var relatorio = new Relatorio();
+    relatorio.pesquisadores.push(pesq1);
+    relatorio.pesquisadores.push(pesq2);
+    relatorio.pesquisadores.push(pesq3);
+
+
+
+    return relatorio;
+}
+
 describe("O servidor", () => {
-  var server: any;
+    var server: any;
 
-  beforeAll(() => { server = require('../lp-server') });
+    beforeAll(() => { server = require('../lp-server') });
 
-  afterAll(() => { server.closeServer() });
+    afterAll(() => { server.closeServer() });
 
-  it("inicialmente retorna um ranking vazio", () => {
-    return request.get(base_url + "estudos-comparativos/")
+    it("inicialmente retorna uma lista de alunos vazia", () => {
+        return request.get(base_url + "relatorios")
             .then(body =>
-              expect(body).toBe("[]")
+                
+                expect(body).toBe("[]")
+                
             )
             .catch(e =>
-              expect(e).toEqual(null)
-             );
-  });
+                expect(e).toEqual(null)
+            );
+    })
 
-  //Qualis
+    it("cadastrar e gerar um relatorio corretamente", () => {
+        var relatorio = montarRelatorio('Caio', 'Paulo', 'Pedro')
+        var options: any = { method: 'POST', uri: (base_url + "relatorios"), body:relatorio, json: true };
+        return request(options)
+            .then(body =>{
+                
+                let temp: Relatorio = <Relatorio>body;
+                let temp1 = new Relatorio;
+                temp1.copyFrom(temp);
+                let expected: Relatorio = gerarRelatorio('Caio', 'Paulo', 'Pedro', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                expected.id = 0;
+                expect(JSON.stringify(temp1)).toEqual(JSON.stringify(expected))
+                    relatorio = montarRelatorio('Caio', 'Paulo', 'Pedro')
+                    relatorio.dataInicial = 11;
+                    relatorio.dataFinal = 18;
+                    var options: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio, json: true };
+                    return request(options)
+                        .then(body => {
+                            let temp: Relatorio = <Relatorio>body;
 
-  // it("Inicialmente a tabela está vazia", () => {
-  //   return request.get(base_url + "qualis").then(body =>  expect(body).toBe("[]"))
-  //                 .catch(e => expect(e).toBe(null));
-  // })
-
-  // it("Cadastra uma planilha corretamente", () => {
-  //   let filePath = path.join(__dirname, <string>'teste.xls');
-  //   let data : string = fs.readFileSync('./spec/test.xls', 'binary');
-  //   console.log(filePath);
-  //   let qualisFile : File = new File([data],filePath);
-  //   let options : any = {method: 'POST', uri: (base_url + "qualis/adicionar"), file: qualisFile};
-  //   return request(options).then(body => expect(body)
-  //                 .toEqual({success : "planilha cadastrada com sucesso"}))
-  //                         .catch(e => exp.catch.e ect(e).toBe(null));
-  // })
-
-  // it("Retorna a avaliação esperada de cada periódico", () => {
-  //   let periodico : string = "BMC Genomics";
-  //   let options : any = {method: 'POST', uri: (base_url + "qualis/avaliacao"), periodico};
-  //   return request(options).then(body => expect(body)
-  //                 .toEqual({success : "B2"}))
-  //                         .catch(e => expect(e).toBe(null));
-  // })
-
-  // it("Limpa a tabela", () => {
-  //   return request.delete(base_url + "qualis/apagar").then(body => expect(body)
-  //                 .toEqual({success : "Tabela qualis apagada"}))
-  //                         .catch(e => expect(e).toBe(null));
-  
-  it("inicialmente retorna uma lista de pesquisadores vazia", () => {
-    return request.get(base_url + "pesquisadores")
-      .then(body =>
-        expect(body).toBe("[]")
-      )
-      .catch(e =>
-        expect(e).toEqual(null)
-      );
-  })
-
-  // Não consegui simular o envio de arquivos XML fazendo um post diretamente pelo node.
-
-  // it("importa xmls corretamente", () => {
-  //   let respostaInicial = `[{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"From VDM Specifications To Functional Prototypes","periodico":"The Journal of Systems and Software"}]}]`;
-
-  //   // Example of XML file
-  //   let file_str = `<?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
-  //   <CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES_OFFLINE" NUMERO-IDENTIFICADOR="9395715443254344" DATA-ATUALIZACAO="20102019" HORA-ATUALIZACAO="201158">
-  //     <DADOS-GERAIS NOME-COMPLETO="Paulo Henrique Monteiro Borba" NOME-EM-CITACOES-BIBLIOGRAFICAS="BORBA, Paulo;BORBA, PAULO;Paulo H. M. Borba;Borba, Paulo H.M.;Paulo Borba;Borba, Paulo;Borba, P." NACIONALIDADE="B" PAIS-DE-NASCIMENTO="Brasil" UF-NASCIMENTO="PE" CIDADE-NASCIMENTO="Recife" PERMISSAO-DE-DIVULGACAO="NAO" DATA-FALECIMENTO="" SIGLA-PAIS-NACIONALIDADE="BRA" PAIS-DE-NACIONALIDADE="Brasil">
-  //       <RESUMO-CV TEXTO-RESUMO-CV-RH="possui doutorado em Computa��o pela Universidade de Oxford, Inglaterra (1995), mestrado em Ci�ncia da Computa��o pela Universidade Federal de Pernambuco (1991), e gradua��o em Ci�ncia da Computa��o pela Universidade Federal de Pernambuco (1989). Atualmente � Professor Titular de Desenvolvimento de Software, na Universidade Federal de Pernambuco, e desenvolve pesquisas em Engenharia de Software e Linguagens de Programa��o, atuando principalmente nos seguintes temas e na integra��o entre eles: Modularidade de Software, Linhas de Produtos de Software, e Evolu��o e Transforma��o de Programas e Modelos." TEXTO-RESUMO-CV-RH-EN="bachelor's at Computer Science from Universidade Federal de Pernambuco (1989), master's at Computer Science from Universidade Federal de Pernambuco (1991) and doctorate at Computing from University of Oxford (1995). Has experience in Computer Science, focusing on Software Engeneering, acting on the following subjects: metodos formais, orientacao a objetos, linguagens funcionais, theorem proving and semantica operacional." />
-  //     </DADOS-GERAIS>
-  //     <PRODUCAO-BIBLIOGRAFICA>
-  //       <ARTIGOS-PUBLICADOS>
-  //         <ARTIGO-PUBLICADO SEQUENCIA-PRODUCAO="2" ORDEM-IMPORTANCIA="">
-  //           <DADOS-BASICOS-DO-ARTIGO NATUREZA="COMPLETO" TITULO-DO-ARTIGO="From VDM Specifications To Functional Prototypes" ANO-DO-ARTIGO="1993" PAIS-DE-PUBLICACAO="" IDIOMA="Ingl�s" MEIO-DE-DIVULGACAO="IMPRESSO" HOME-PAGE-DO-TRABALHO="" FLAG-RELEVANCIA="NAO" DOI="10.1016/0164-1212(93)90028-V" TITULO-DO-ARTIGO-INGLES="" FLAG-DIVULGACAO-CIENTIFICA="NAO" />
-  //           <DETALHAMENTO-DO-ARTIGO TITULO-DO-PERIODICO-OU-REVISTA="The Journal of Systems and Software" ISSN="01641212" VOLUME="21" FASCICULO="3" SERIE="" PAGINA-INICIAL="267" PAGINA-FINAL="278" LOCAL-DE-PUBLICACAO="USA" />
-  //           <AUTORES NOME-COMPLETO-DO-AUTOR="Paulo Henrique Monteiro Borba" NOME-PARA-CITACAO="BORBA, Paulo;BORBA, PAULO;Paulo H. M. Borba;Borba, Paulo H.M.;Paulo Borba;Borba, Paulo;Borba, P." ORDEM-DE-AUTORIA="1" NRO-ID-CNPQ="9395715443254344" />
-  //           <AUTORES NOME-COMPLETO-DO-AUTOR="S. R. L. MEIRA" NOME-PARA-CITACAO="MEIRA, S. R. L." ORDEM-DE-AUTORIA="2" NRO-ID-CNPQ="4973731190814126" />
-  //           <PALAVRAS-CHAVE PALAVRA-CHAVE-1="Linguagem Funcional" PALAVRA-CHAVE-2="Metodos Formais" PALAVRA-CHAVE-3="Prototipagem" PALAVRA-CHAVE-4="" PALAVRA-CHAVE-5="" PALAVRA-CHAVE-6="" />
-  //           <AREAS-DO-CONHECIMENTO>
-  //             <AREA-DO-CONHECIMENTO-1 NOME-GRANDE-AREA-DO-CONHECIMENTO="CIENCIAS_EXATAS_E_DA_TERRA" NOME-DA-AREA-DO-CONHECIMENTO="" NOME-DA-SUB-AREA-DO-CONHECIMENTO="Metodologia e T�cnicas da Computa��o" NOME-DA-ESPECIALIDADE="Engenharia de Software" />
-  //           </AREAS-DO-CONHECIMENTO>
-  //           <SETORES-DE-ATIVIDADE SETOR-DE-ATIVIDADE-1="Inform�tica" SETOR-DE-ATIVIDADE-2="" SETOR-DE-ATIVIDADE-3="" />
-  //         </ARTIGO-PUBLICADO>
-  //       </ARTIGOS-PUBLICADOS>
-  //       <TRABALHOS-EM-EVENTOS>
-  //         <TRABALHO-EM-EVENTOS SEQUENCIA-PRODUCAO="4">
-  //           <DADOS-BASICOS-DO-TRABALHO NATUREZA="COMPLETO" TITULO-DO-TRABALHO="States as Specifications" ANO-DO-TRABALHO="1996" PAIS-DO-EVENTO="Brasil" IDIOMA="Ingl�s" MEIO-DE-DIVULGACAO="IMPRESSO" HOME-PAGE-DO-TRABALHO="" FLAG-RELEVANCIA="NAO" DOI="" TITULO-DO-TRABALHO-INGLES="" FLAG-DIVULGACAO-CIENTIFICA="NAO" />
-  //           <DETALHAMENTO-DO-TRABALHO CLASSIFICACAO-DO-EVENTO="NACIONAL" NOME-DO-EVENTO="I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)" CIDADE-DO-EVENTO="" ANO-DE-REALIZACAO="" TITULO-DOS-ANAIS-OU-PROCEEDINGS="I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)" VOLUME="" FASCICULO="" SERIE="" PAGINA-INICIAL="223" PAGINA-FINAL="236" ISBN="" NOME-DA-EDITORA="" CIDADE-DA-EDITORA="B. HORIZONTE, MINAS GERAIS" NOME-DO-EVENTO-INGLES="" />
-  //           <AUTORES NOME-COMPLETO-DO-AUTOR="Paulo Henrique Monteiro Borba" NOME-PARA-CITACAO="BORBA, Paulo;BORBA, PAULO;Paulo H. M. Borba;Borba, Paulo H.M.;Paulo Borba;Borba, Paulo;Borba, P." ORDEM-DE-AUTORIA="1" NRO-ID-CNPQ="9395715443254344" />
-  //           <PALAVRAS-CHAVE PALAVRA-CHAVE-1="Metodos Formais" PALAVRA-CHAVE-2="Orientacao A Objetos" PALAVRA-CHAVE-3="Semantica Operacional" PALAVRA-CHAVE-4="" PALAVRA-CHAVE-5="" PALAVRA-CHAVE-6="" />
-  //           <AREAS-DO-CONHECIMENTO>
-  //             <AREA-DO-CONHECIMENTO-1 NOME-GRANDE-AREA-DO-CONHECIMENTO="CIENCIAS_EXATAS_E_DA_TERRA" NOME-DA-AREA-DO-CONHECIMENTO="" NOME-DA-SUB-AREA-DO-CONHECIMENTO="Metodologia e T�cnicas da Computa��o" NOME-DA-ESPECIALIDADE="Engenharia de Software" />
-  //           </AREAS-DO-CONHECIMENTO>
-  //           <SETORES-DE-ATIVIDADE SETOR-DE-ATIVIDADE-1="Inform�tica" SETOR-DE-ATIVIDADE-2="" SETOR-DE-ATIVIDADE-3="" />
-  //         </TRABALHO-EM-EVENTOS>
-  //       </TRABALHOS-EM-EVENTOS>
-  //     </PRODUCAO-BIBLIOGRAFICA>
-  //   </CURRICULO-VITAE>`;
-
-  //   // let bf = new Buffer(file_str);
-
-  //   let formData = new FormData();
-  //   formData.append('lattesFiles', file_str);
-
-  //   return request.post({ url: base_url + "pesquisador/adicionar", formData: formData }).then(body => {
-  //     expect(body).toEqual({ success: "arquivos foram importados com sucesso" });
-  //     return request.get(base_url + "pesquisadores")
-  //     .then(body =>
-  //       expect(body).toBe(respostaInicial)
-  //     )
-  //     .catch(e =>
-  //       expect(e).toEqual(null)
-  //     );
-  //   })
-
-  // });
-
-  // it("ignora pesquisadores duplicadas", () => {
-  //   let pesquisador = {
-  //     "json": {
-  //       "nome": "Paulo Henrique Monteiro Borba",
-  //       "orgao": "",
-  //       "publicacoes": [
-  //         {
-  //           "titulo":"States as Specifications",
-  //           "periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"
-  //         },
-  //         {
-  //           "titulo":"From VDM Specifications To Functional Prototypes",
-  //           "periodico":"The Journal of Systems and Software"
-  //         }
-  //       ]
-  //     }
-  //   };
-
-  //   let respostaInicial = `[{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"From VDM Specifications To Functional Prototypes","periodico":"The Journal of Systems and Software"}]}]`;
-
-  //   return request.post(base_url + "pesquisador/adicionar", pesquisador).then(body => {
-  //     expect(body).toEqual({ failure: "publicacao ja cadastrada" });
-  //     return request.get(base_url + "publications").then(body => expect(body).toBe(respostaInicial)).catch(e => expect(e).toEqual(null));
-  //   });
-  // })
-
-  // it("cadastra pesquisadores corretamente", () => {
-
-  //   let pesquisador = {
-  //     "json": {
-  //       "nome": "Paulo Henrique Monteiro Borba",
-  //       "orgao": "",
-  //       "publicacoes": [
-  //         {
-  //           "titulo":"States as Specifications",
-  //           "periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"
-  //         },
-  //         {
-  //           "titulo":"From VDM Specifications To Functional Prototypes",
-  //           "periodico":"The Journal of Systems and Software"
-  //         }
-  //       ]
-  //     }
-  //   };
-
-  //   let resposta = `[{"nome":"Paulo Henrique Monteiro Borba","orgao":"","publicacoes":[{"titulo":"States as Specifications","periodico":"I Simp�sio Brasileiro de Linguagens de Programa��o (SBLP 1996)"},{"titulo":"From VDM Specifications To Functional Prototypes","periodico":"The Journal of Systems and Software"}]}]`;
+                            let temp1 = new Relatorio;
+                            temp1.copyFrom(temp);
+                            let expected: Relatorio = gerarRelatorio('Caio', 'Paulo', 'Pedro', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', 11, 18);
+                            expected.id = 1;
+                            expect(JSON.stringify(temp1)).toEqual(JSON.stringify(expected))
+                        })
+                })
+                .catch(e => {
+                expect(e).toEqual(null)
+            }
+            )
+    });
 
 
-  //   return request.post(base_url + "pesquisador/adicionar", pesquisador).then(body => {
-  //     expect(body).toEqual({ success: "pesquisador cadastrado com sucesso" });
-  //     return request.get(base_url + "pesquisadores").then(body => expect(body).toBe(resposta)).catch(e => expect(e).toEqual(null));
-  //   });
-  // })
+    it("não cadastra relatorio duplicado", () => {
+        var relatorio1 = montarRelatorio('Caio', 'Paulo', 'Pedro')
+        
+        var options: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio1, json: true };
+        return request(options)
+            .then(body => {
+                let expected: Relatorio = gerarRelatorio('Caio', 'Paulo', 'Pedro', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                expect(body).toEqual({ failure: "O relatorio ja foi gerado." });
+                        return request.get(base_url + "relatorios")
+                            .then(body => {
+                                expect(JSON.parse(body).length).toBe(2);
+                            });
+                    
+            })
+            .catch(err => {
+                expect(err).toEqual(null)
+            });
+    })
+    it("deletar relatorio corretamente", () => {
+        
+        var relatorio1 = montarRelatorio('Dale', 'Dele', 'Doli')
 
-})
+        var options: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio1, json: true };
+        return request(options)
+            .then(body => {
+                var expected: Relatorio = gerarRelatorio('Dale', 'Dele', 'Doli', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                expected.id = 2;
+                expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected, null, 4))
+                var relatorio2 = montarRelatorio('Xesque', 'Bresque', 'Vraulen')
+                var options1: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio2, json: true };
+                return request(options1)
+                    .then(body => {
+                        var expected1: Relatorio = gerarRelatorio('Xesque', 'Bresque', 'Vraulen', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                        expected1.id = 3;
+                        expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected1, null, 4))
+                        var relatorio3 = montarRelatorio('Pedro', 'Padre', 'Pedra')
+                        var options2: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio3, json: true };
+                        return request(options2)
+                            .then(body => {
+                                var expected2: Relatorio = gerarRelatorio('Pedro', 'Padre', 'Pedra', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                                expected2.id = 4;
+                                expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected2, null, 4))
+                                return request.delete(base_url + "relatorios/" + '3')
+                                    .then(body => {
+                                        expect(body).toEqual(JSON.stringify({ success: "O relatorio foi deletado com sucesso." }))
+                                        return request.get(base_url + "relatorios")
+                                            .then(body => {
+                                                expect(JSON.parse(body).length).toBe(4)
+                                                expect(body).toContain(JSON.stringify(expected));
+                                                expect(body).not.toContain(JSON.stringify(expected1));
+                                                expect(body).toContain(JSON.stringify(expected2));
+
+                                            })
+                                    })
+
+
+                            })
+                    })
+            })
+            
+
+    })
+    it("não deletar relatorio quando o ID passado não existe.", () => {
+        var relatorio1 = montarRelatorio('Heitor', 'Paulo', 'Pedro')
+
+        var options: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio1, json: true };
+        return request(options)
+            .then( body => {
+                var expected: Relatorio = gerarRelatorio('Heitor', 'Paulo', 'Pedro', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                expected.id = 5;
+                expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected, null, 4))
+                var relatorio2 = montarRelatorio('Luan', 'Luna', 'Paula')
+                var options1: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio2, json: true };
+                return request(options1)
+                    .then( body => {
+                        var expected1: Relatorio = gerarRelatorio('Luan', 'Luna', 'Paula', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                        expected1.id = 6;
+                        expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected1, null, 4))
+                        var relatorio3 = montarRelatorio('Luana', 'BrUNO', 'Leo')
+                        var options2: any = { method: 'POST', uri: (base_url + "relatorios"), body: relatorio3, json: true };
+                        return request(options2)
+                            .then ( body => {
+                                var expected2: Relatorio = gerarRelatorio('Luana', 'BrUNO', 'Leo', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                                expected2.id = 7;
+                                expect(JSON.stringify(body, null, 4)).toEqual(JSON.stringify(expected2, null, 4))
+                                return request.delete(base_url + "relatorios/" + '8')
+                                    .then(body => {
+                                        expect(body).toEqual(JSON.stringify({ failure: "O relatorio nao pode ser deletado" }))
+                                            return request.get(base_url + "relatorios")
+                                                .then(body => {
+                                                    expect(JSON.parse(body).length).toBe(7)
+                                                    expect(body).toContain(JSON.stringify(expected));
+                                                    expect(body).toContain(JSON.stringify(expected1));
+                                                    expect(body).toContain(JSON.stringify(expected2));
+
+                                                })
+                                    })
+                                
+                                
+                            })
+                    })
+            })
+        
+        
+
+
+        
+
+    })
+    it("atualizar um relatorio", () => {
+        var options: any = { method: 'PUT', uri: (base_url + "relatorios/7"), json: true };
+        return request(options)
+            .then(body => {
+
+                let temp: Relatorio = <Relatorio>body;
+                let temp1 = new Relatorio;
+                temp1.copyFrom(temp);
+                var expected2: Relatorio = gerarRelatorio('Luana', 'BrUNO', 'Leo', 'A1', 'A1', 'B4', 'A2', 'A2', 'A2', 'A3', 'A2', 'A2', 'A2', null, null);
+                expected2.id = 7;
+                expect(JSON.stringify(temp1)).toEqual(JSON.stringify(expected2))
+            })
+            .catch(e => {
+                expect(e).toEqual(null)
+            }
+            )
+    });
+    it("não atualizar um relatorio quando ID passado não existe", () => {
+        var options: any = { method: 'PUT', uri: (base_url + "relatorios/8"), json: true };
+        return request(options)
+            .then(body => {
+                expect(body).toEqual({ failure: "O relatorio nao pode ser atualizado"})
+            })
+            .catch(e => {
+                expect(e).toEqual(null)
+            }
+            )
+    });
+
+
+}) 

@@ -4,9 +4,9 @@
   "description": "Servidor do Lattes Processor",
   "main": "lp-server.js",
   "scripts": {
-    "test": "npm run tsc && jasmine --config=./spec/support/jasmine.json",
+    "test": "npx tsc && jasmine --config=./spec/support/jasmine.json",
     "tsc": "./node_modules/typescript/bin/tsc",
-    "start": "npm run tsc && node compiledCode/lp-server/lp-server.js"
+    "start": "npx tsc && node compiledCode/lp-server/lp-server.js"
   },
   "author": "ejas, mbmt, tbm2, vdj, gbc7",
   "license": "MIT",

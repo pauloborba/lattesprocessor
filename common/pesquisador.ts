@@ -1,29 +1,36 @@
 import { Publicacao } from './publicacao';
 
 export class Pesquisador {
-  nome: string;
-  orgao: string;
-  publicacoes: Publicacao[];
+    nome: string;
+    publicacoes: Publicacao[];
 
-  constructor() {
-    this.clean();
-  }
+    constructor() {
+        this.nome = "";
+        this.publicacoes = [];
+    }
 
-  clean(): void {
-    this.nome = "";
-    this.orgao = "";
-    this.publicacoes = [];
-  }
+    randomMize(): void {
+        this.nome = this.gerarString(10);
+        var pub = Math.round(Math.random() * 10 / 3);
+        for (let i = 0; i < pub; i++) {
+            var temp = new Publicacao()
+            temp.randomMize();
+            this.publicacoes.push(temp);
+        }
+        
+    }
+    getNome(): string {
+        return this.nome;
+    }
 
-  copyFrom(p: Pesquisador): Pesquisador {
-    this.nome = p.nome;
-    this.orgao = p.orgao;
-    this.publicacoes = p.publicacoes;
-    return this;
-  }
-  
-  addPublicacao(p: Publicacao): Pesquisador{
-    this.publicacoes.push(p);
-    return this;
-  }
+
+    gerarString(length: number): string {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 }

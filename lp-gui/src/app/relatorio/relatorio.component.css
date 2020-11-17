@@ -1,0 +1,22 @@
+.relatorioHeader {
+    display: flex;
+ 
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+}
+.relatorio {
+    border: 2px solid red;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.relButton {
+    margin-right: 10px;
+    color: blue;
+}

@@ -1,0 +1,102 @@
+<html>
+
+    Data inicial: <input name="datainicialbox" [(ngModel)]="relatorio.dataInicial" type="number">
+    Data final: <input name="datafinalbox" [(ngModel)]="relatorio.dataFinal" type="number">
+    <button (click)="montarRelatorio()">Gerar relatorio</button>
+    <div class="avisos" (click)="removerAvisos()"> 
+        <span name="relatorioJaCriado" *ngIf="relatorioJaCriado">Relatorio já gerado, atualize o relatório</span>
+        <span name="relatorioJaDeletado" *ngIf="relatorioJaDeletado">Esse relatorio não pode ser deletado, pois ele não existe.</span>
+        <span name="relatorioNaoAtualizado" *ngIf="relatorioNaoAtualizado">Esse relatorio não pode ser atualizado, pois ele não existe.</span>
+        <span name="dataFinalMenor" *ngIf="dataFinalMenor">A data final deve ser maior que a data inicial.</span>
+        <span name="datasInvalidas" *ngIf="datasInvalidas">Data invalida.</span>
+        <span name="relatorioAtualizou" *ngIf="relatorioAtualizou">Relatório atualizado com sucesso</span>
+    </div>
+
+    <div *ngFor="let r of relatorios" class="relatorio" name="relatoriolist">
+        <div class="relatorioHeader">
+            ID:<p name="idlist">{{r.id}}</p>
+            Data inicial:<p name="datainiciallist">{{r.dataInicial}}</p>
+            Data inicial:<p name="datafinallist">{{r.dataFinal}}</p>
+            <div>
+                <button class="relButton" (click)="atualizarRender(r.id)">Mostrar</button>
+                <button class="relButton" name="Atualizar" (click)="atualizarRelatorio(r.id)">Atualizar</button>               
+                <button class="relButton" name="Deletar" (click)="deletarRelatorio(r.id)">Deletar</button>
+            </div>
+        </div>
+        <div class="relatorioContent" *ngIf="getRender(r.id)">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <th>Mais Publicacoes:</th>
+                    <th>Melhor média:</th>
+                    <th>Mais notas máximas:</th>
+                </tr>
+                <tr>
+                    <td>{{getNomes(r.maisPublicacoes)}}</td>
+                    <td>{{getNomes(r.melhorMedia)}}</td>
+                    <td>{{getNomes(r.maisMaximas)}}</td>
+                </tr>
+                
+                
+            </table>
+            <table style="width: 100%;text-align: center;">
+                <tr>
+                    <th>Pesquisador</th>
+                    <th>Notas maximas</th>
+                    <th>Publicacoes</th>
+                </tr>
+                <tr *ngFor="let p of r.pesquisadores; let i = index" name="alunolist"> 
+                    <td name="nomelist">{{p.nome}}</td>
+                    <td name="cpflist">{{r.notasMaximas[i]}}</td>
+                    <td>{{r.artigos[i]}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+   
+
+
+</html>
+<!--<html (mousemove)="onMove()">
+
+<table>
+    <tr>
+        <td><label>Nome </label></td>
+        <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
+        <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
+    </tr>
+    <tr>
+        <td><label>CPF </label></td>
+        <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
+        <td name="msgcpfexistente" *ngIf="cpfduplicado">
+            Já existe um aluno com esse CPF
+        </td>
+    </tr>
+    <tr>
+        <td><label>GITHUB</label></td>
+        <td><input [(ngModel)]="aluno.github"></td>
+        <td *ngIf="githubduplicado">
+            Já existe um aluno com esse Github
+        </td>
+    </tr>
+    <tr>
+        <td><label>e-mail </label></td>
+        <td><input [(ngModel)]="aluno.email"></td>
+    </tr>
+</table>
+
+<table>
+    <tr *ngIf="alunos.length > 0">
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>e-mail</th>
+        <th>Github</th>
+    </tr>
+    <tr *ngFor="let a of alunos" name="alunolist">
+        <td name="nomelist">{{a.nome}}</td>
+        <td name="cpflist">{{a.cpf}}</td>
+        <td>{{a.email}}</td>
+        <td>{{a.github}}</td>
+    </tr>
+</table>
+
+</html>*/--> 
