@@ -32,7 +32,7 @@
         
         <tr>
             <div id="groupHeader">
-                <h2 name="nomelist">{{g.nome}}</h2>
+                <h2 name="grupo-nomelist">{{g.nome}}</h2>
                 <button *ngIf="grupos.length > 1" 
                         id="add"
                         (click)="addPesquisadores(g, grupoAdd)">
@@ -47,20 +47,21 @@
             </div>
             <h4 *ngIf="g.integrantes.length > 0">Integrantes</h4>
             <ol>
-                <li *ngFor="let p of g.integrantes">
-                    {{p.nome}}
+                <li name="pesquisadorG-list" *ngFor="let p of g.integrantes">
+                    <p name="pesquisadorG-nomelist" >{{p.nome}}</p>
                 </li>
                 
             </ol>
             <button (click)="addPesquisador(pesquisador, g)"
-                    *ngIf="pesquisadores.length > 0">
+                    *ngIf="pesquisadores.length > 0"
+                    name="adicionar-pesquisador">
                 Adicionar Pesquisador
             </button>
-            <select *ngIf="pesquisadores.length > 0" 
+            <select name="pesquisador-select" *ngIf="pesquisadores.length > 0" 
                     (click)="onMove()" 
                     [(ngModel)]="pesquisador.nome">
                 <option *ngFor="let p of pesquisadores" name="pesquisadorlist">
-                    <p name="nomelist">{{p.nome}}</p>
+                    <p name="pesquisador-nomelist">{{p.nome}}</p>
                 </option>
             </select>
             
