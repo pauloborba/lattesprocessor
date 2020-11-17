@@ -30,3 +30,4 @@ export let config: Config = {
         require: ['../../stepdefinitions/*.ts'],
     }
 };
+

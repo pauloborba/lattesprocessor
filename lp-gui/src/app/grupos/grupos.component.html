@@ -1,0 +1,78 @@
+<html>
+<h1>Grupos</h1>
+
+<hr>
+<div class="main">
+
+<div id="cadastro">
+    
+    <h2>Novo grupo</h2>
+    <table>
+        <tr>
+            <td>Nome do grupo</td>
+            <td>
+                <input name="namebox" 
+                       (click)="onMove()" 
+                       [(ngModel)]="grupo.nome">
+            </td>
+            <td><button (click)="criar(grupo)">Criar Grupo</button></td>
+            <td class="errorMsg" *ngIf="nomeInvalido">
+                Nome invalido
+            </td>
+        </tr>
+    </table>
+    
+   
+</div>
+
+<div id="grupos">
+    <h2>Grupos existentes</h2>
+    <div id="grupo" *ngFor="let g of grupos" name="grupolist">
+    <table>
+        
+        <tr>
+            <div id="groupHeader">
+                <h2 name="grupo-nomelist">{{g.nome}}</h2>
+                <button *ngIf="grupos.length > 1" 
+                        id="add"
+                        (click)="addPesquisadores(g, grupoAdd)">
+                    Adicionar pesquisadores de outros grupos
+                </button>
+                <select *ngIf="grupos.length > 1" [(ngModel)]="grupoAdd.nome">
+                    <option *ngFor="let g2 of grupos">
+                        <p *ngIf="g2 != g">{{g2.nome}}</p>
+                    </option>
+                </select>
+                <button name="remover-grupo" (click)="removerGrupo(g)">Excluir Grupo</button>
+            </div>
+            <h4 *ngIf="g.integrantes.length > 0">Integrantes</h4>
+            <ol>
+                <li name="pesquisadorG-list" *ngFor="let p of g.integrantes">
+                    <p name="pesquisadorG-nomelist" >{{p.nome}}</p>
+                </li>
+                
+            </ol>
+            <button (click)="addPesquisador(pesquisador, g)"
+                    *ngIf="pesquisadores.length > 0"
+                    name="adicionar-pesquisador">
+                Adicionar Pesquisador
+            </button>
+            <select name="pesquisador-select" *ngIf="pesquisadores.length > 0" 
+                    (click)="onMove()" 
+                    [(ngModel)]="pesquisador.nome">
+                <option *ngFor="let p of pesquisadores" name="pesquisadorlist">
+                    <p name="pesquisador-nomelist">{{p.nome}}</p>
+                </option>
+            </select>
+            
+            <td class="errorMsg" *ngIf="pesquisadorJaExistente">
+                Erro, pesquisador ja existe neste grupo.
+            </td>
+        </tr>
+        
+    </table>
+    </div>
+</div>
+</div>
+
+</html>

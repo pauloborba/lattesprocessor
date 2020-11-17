@@ -24,12 +24,12 @@
     "xml2js": "^0.4.22"
   },
   "devDependencies": {
-    "typescript": "~3.5.3",
-    "jasmine": "^2.8.0",
     "@types/jasmine": "^2.8.9",
+    "@types/request-promise": "^4.1.38",
+    "jasmine": "^2.99.0",
     "jasmine-promises": "^0.4.1",
     "request": "^2.34",
     "request-promise": "^4.2.2",
-    "@types/request-promise": "^4.1.38"
+    "typescript": "~3.5.3"
   }
 }

@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Pesquisador } from '../../../../common/pesquisador';
 import { PesquisadorService } from './pesquisador.service';
 
