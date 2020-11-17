@@ -23,10 +23,10 @@ Scenario: Remoção bem-sucedida de um grupo
     When eu tento remover o grupo "Centro de Informatica" do sistema
     Then não existe mais o grupo "Centro de Informatica" no sistema
 
-# Scenario: Formação bem-sucedida de um grupo a partir outros  grupos existentes
+# Scenario: Insercao bem-sucedida de pesquisadores de um grupo em outro grupo
 #     Given eu estou na página de grupos
-#     And existem os grupos “Redes”, “Arquitetura de Computadores”  e “Sistemas Operacionais” no sistema
-#     And não existe um grupo “Infra-estrutura” cadastrado no sistema
-#     When eu crio o grupo “Infra-estrutura” a partir dos grupos “Redes”, “Arquitetura de Computadores” e “Sistemas Operacionais”
-#     Then eu posso ver todos os usuários dos grupos “Redes”, “Sistemas Operacionais” e “Arquitetura de Computadores” no grupo “Infra-estrutura”
+#     Given existem os grupos "CIn" e "UFPE" no sistema
+#     Given existem os pesquisadores "Anjolina Grisi de Oliveira" e "Carlos Andre Guimaraes Ferraz" no grupo "CIn"
+#     When eu tento cadastrar os pesquisadores do grupo "CIn" no grupo "UFPE"
+#     Then eu posso ver os pesquisadores "Anjolina Grisi de Oliveira" e "Carlos Andre Guimaraes Ferraz" no grupo "UFPE"
 
