@@ -47,4 +47,11 @@ export class PesquisadorService {
        );
   }
 
+  getAuthorDiff(): Observable<string> {
+    return this.http.get<string>(this.taURL + "/authordiff/", {headers:this.headers})
+      .pipe(
+        retry(2)
+       );
+  }
+
 }

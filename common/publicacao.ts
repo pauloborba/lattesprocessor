@@ -2,7 +2,7 @@ export class Publicacao {
     titulo: string;
     periodico: string;
     issn: string;
-    autores: string;
+    autores: string[];
 
     constructor(titulo: string, periodico: string) {
         this.titulo = titulo;

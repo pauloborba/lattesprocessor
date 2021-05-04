@@ -49,6 +49,15 @@ export class CadastroDePesquisadores {
       
       return this.pesquisadores[pesqIndex].getDiffString(tempPesquisador);
   }
+  
+  getAuthorDiff(p: Pesquisador): string {
+      let tempPesquisador = new Pesquisador;
+      tempPesquisador.copyFrom(p);
+      
+      let pesqIndex = this.getIndex(tempPesquisador);
+      
+      return this.pesquisadores[pesqIndex].getAuthorDiff(tempPesquisador)[1];
+  }
 
   getIndex(p: Pesquisador): number {
     for(let i = 0; i < this.pesquisadores.length; i++) {

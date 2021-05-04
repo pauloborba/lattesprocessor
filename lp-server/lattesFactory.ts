@@ -7,6 +7,7 @@ let xml2js = require('xml2js');
 export class LattesFactory {
   cadastroPesq: CadastroDePesquisadores;
   cvDiff: string;
+  authorDiff: string;
 
   // injecting
   constructor(c: CadastroDePesquisadores) {
@@ -23,7 +24,13 @@ export class LattesFactory {
   getArticle(a: any): Publicacao {
     let publiName = a['DADOS-BASICOS-DO-ARTIGO'][0].ATTR['TITULO-DO-ARTIGO'];
     let publiPeriodic = a['DETALHAMENTO-DO-ARTIGO'][0].ATTR['TITULO-DO-PERIODICO-OU-REVISTA'];
+    let publiAutores = a['AUTORES']
+    let publiAutoresArray: string[] = [];
+    publiAutores.forEach((b: any) => {
+        publiAutoresArray.push(b.ATTR['NOME-COMPLETO-DO-AUTOR']);
+    });
     let publi = new Publicacao(publiName, publiPeriodic);
+    publi.autores = publiAutoresArray; //TODO refactor
     return publi;
   }
 
@@ -58,8 +65,10 @@ export class LattesFactory {
           });
           if (this.cadastroPesq.alreadyExists(tempPesquisador)) {
               this.cvDiff = this.cadastroPesq.getDiffString(tempPesquisador);
+              this.authorDiff = this.cadastroPesq.getAuthorDiff(tempPesquisador);
           } else {
               this.cvDiff = "";
+              this.authorDiff = "";
           }
           resp = this.cadastroPesq.addPesquisador(tempPesquisador);
         } catch (error) {
