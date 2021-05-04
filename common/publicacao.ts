@@ -17,4 +17,12 @@ export class Publicacao {
             return false;
         }
     }
+    
+    getAutores(p: Publicacao): string[] {
+        return p.autores;
+    }
+    
+    getTitulo(p: Publicacao): string {
+        return p.titulo;
+    }
   }

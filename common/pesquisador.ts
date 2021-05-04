@@ -31,7 +31,7 @@ export class Pesquisador {
           for(let j = 0; j <= p.publicacoes.length; j++) {
               if (j === p.publicacoes.length) {
                   if (found === 0) {
-                      result = result + this.publicacoes[i].titulo + ", ";
+                      result = result + this.publicacoes[i].getTitulo() + ", ";
                   }
               } else {
                   if (p.publicacoes[j].isEqual(this.publicacoes[i])) {
@@ -46,7 +46,7 @@ export class Pesquisador {
           for(let j = 0; j <= this.publicacoes.length; j++) {
               if (j === this.publicacoes.length) {
                   if (found === 0) {
-                      result = result + p.publicacoes[i].titulo + ", ";
+                      result = result + p.publicacoes[i].getTitulo() + ", ";
                       count++;
                   }
               } else {
@@ -67,23 +67,23 @@ export class Pesquisador {
       return result;
   }
   
-  getAuthorDiff(p: Pesquisador): [number, string] { //TODO refactor?
+  getAuthorDiff(p: Pesquisador): [number, string] {
       let result = "+ ";
       let count = 0;
       for (let i = 1; i < this.publicacoes.length; i++) {
           for (let j = 1; j < p.publicacoes.length; j++) {
               if (this.publicacoes[i].isEqual(p.publicacoes[j])) {
-                  if (this.publicacoes[i].autores.length != p.publicacoes[j].autores.length) {
-                      for (let k = 0; k < p.publicacoes[j].autores.length; k++) {
+                  if (this.publicacoes[i].getAutores().length != p.publicacoes[j].getAutores().length) {
+                      for (let k = 0; k < p.publicacoes[j].getAutores().length; k++) {
                           let found = 0;
-                          for (let l = 0; l < this.publicacoes[i].autores.length; l++) {
-                              if (p.publicacoes[j].autores[k] === this.publicacoes[i].autores[l]) {
+                          for (let l = 0; l < this.publicacoes[i].getAutores().length; l++) {
+                              if (p.publicacoes[j].getAutores()[k] === this.publicacoes[i].getAutores()[l]) {
                                   found = 1;
                               }
                           }
                           if (found === 0) {
                               count++;
-                              result = result + p.publicacoes[j].autores[k] + " foi adicionado(a) como autor(a) a " + p.publicacoes[j].titulo;
+                              result = result + p.publicacoes[j].getAutores()[k] + " foi adicionado(a) como autor(a) a " + p.publicacoes[j].getTitulo();
                           }
                       }
                   }
