@@ -25,12 +25,13 @@ export class Pesquisador {
   getDiffString(p: Pesquisador): string {
       let result = "- ";
       let found = 0;
+      let count = 0;
       for(let i = 0; i < this.publicacoes.length; i++) {
           found = 0;
           for(let j = 0; j <= p.publicacoes.length; j++) {
               if (j === p.publicacoes.length) {
                   if (found === 0) {
-                      result = result + this.publicacoes[i].titulo + " ";
+                      result = result + this.publicacoes[i].titulo + ", ";
                   }
               } else {
                   if (p.publicacoes[j].isEqual(this.publicacoes[i])) {
@@ -45,7 +46,8 @@ export class Pesquisador {
           for(let j = 0; j <= this.publicacoes.length; j++) {
               if (j === this.publicacoes.length) {
                   if (found === 0) {
-                      result = result + p.publicacoes[i].titulo + " ";
+                      result = result + p.publicacoes[i].titulo + ", ";
+                      count++;
                   }
               } else {
                   if (this.publicacoes[j].isEqual(p.publicacoes[i])) {
@@ -56,6 +58,9 @@ export class Pesquisador {
       }
       if (result === "- + ") {
           result = "O currículo importado é igual ao presente no sistema.";
+      } else {
+          let percentage = count / ((p.publicacoes.length - 1) / 100);
+          result = result + percentage + "% de diferença.";
       }
       return result;
   }
