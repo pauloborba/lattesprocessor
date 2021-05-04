@@ -18,11 +18,11 @@ export class Publicacao {
         }
     }
     
-    getAutores(p: Publicacao): string[] {
-        return p.autores;
+    getAutores(): string[] {
+        return this.autores;
     }
     
-    getTitulo(p: Publicacao): string {
-        return p.titulo;
+    getTitulo(): string {
+        return this.titulo;
     }
   }
