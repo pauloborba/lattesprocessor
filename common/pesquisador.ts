@@ -30,7 +30,7 @@ export class Pesquisador {
           for(let j = 0; j <= p.publicacoes.length; j++) {
               if (j === p.publicacoes.length) {
                   if (found === 0) {
-                      result = result + this.publicacoes[i] + " ";
+                      result = result + this.publicacoes[i].titulo + " ";
                   }
               } else {
                   if (p.publicacoes[j].isEqual(this.publicacoes[i])) {
@@ -45,10 +45,10 @@ export class Pesquisador {
           for(let j = 0; j <= this.publicacoes.length; j++) {
               if (j === this.publicacoes.length) {
                   if (found === 0) {
-                      result = result + p.publicacoes[i] + " ";
+                      result = result + p.publicacoes[i].titulo + " ";
                   }
               } else {
-                  if (this.publicacoes[j].isEqual(this.publicacoes[i])) {
+                  if (this.publicacoes[j].isEqual(p.publicacoes[i])) {
                       found = 1;
                   }
               }
@@ -56,8 +56,6 @@ export class Pesquisador {
       }
       if (result === "- + ") {
           result = "O currículo importado é igual ao presente no sistema.";
-      } else {
-          result = "not implemented";
       }
       return result;
   }
