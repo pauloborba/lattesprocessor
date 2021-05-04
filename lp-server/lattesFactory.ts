@@ -6,6 +6,7 @@ let xml2js = require('xml2js');
 
 export class LattesFactory {
   cadastroPesq: CadastroDePesquisadores;
+  cvDiff: string;
 
   // injecting
   constructor(c: CadastroDePesquisadores) {
@@ -55,7 +56,11 @@ export class LattesFactory {
           articles.forEach((a: any) => {
             tempPesquisador.addPublicacao(this.getArticle(a));
           });
-  
+          if (this.cadastroPesq.alreadyExists(tempPesquisador)) {
+              this.cvDiff = this.cadastroPesq.getDiffString(tempPesquisador);
+          } else {
+              this.cvDiff = "";
+          }
           resp = this.cadastroPesq.addPesquisador(tempPesquisador);
         } catch (error) {
           console.log(error);

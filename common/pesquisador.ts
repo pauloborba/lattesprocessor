@@ -22,6 +22,46 @@ export class Pesquisador {
     return this;
   }
   
+  getDiffString(p: Pesquisador): string {
+      let result = "- ";
+      let found = 0;
+      for(let i = 0; i < this.publicacoes.length; i++) {
+          found = 0;
+          for(let j = 0; j <= p.publicacoes.length; j++) {
+              if (j === p.publicacoes.length) {
+                  if (found === 0) {
+                      result = result + this.publicacoes[i] + " ";
+                  }
+              } else {
+                  if (p.publicacoes[j].isEqual(this.publicacoes[i])) {
+                      found = 1;
+                  }
+              }
+          }
+      }
+      result = result + "+ ";
+      for (let i = 0; i < p.publicacoes.length; i++) {
+          found = 0;
+          for(let j = 0; j <= this.publicacoes.length; j++) {
+              if (j === this.publicacoes.length) {
+                  if (found === 0) {
+                      result = result + p.publicacoes[i] + " ";
+                  }
+              } else {
+                  if (this.publicacoes[j].isEqual(this.publicacoes[i])) {
+                      found = 1;
+                  }
+              }
+          }
+      }
+      if (result === "- + ") {
+          result = "O currículo importado é igual ao presente no sistema.";
+      } else {
+          result = "not implemented";
+      }
+      return result;
+  }
+  
   addPublicacao(p: Publicacao): Pesquisador{
     this.publicacoes.push(p);
     return this;

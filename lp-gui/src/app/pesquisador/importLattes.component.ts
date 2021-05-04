@@ -15,6 +15,7 @@ export class ImportLattesComponent implements OnInit {
   // variable to alert if an error occoured during the processing of a lattes file
   statusLattes: string = '';
   pesquisadores: Pesquisador[];
+  cvDiff: string = '';
 
 
   constructor(private pesquisadorService: PesquisadorService) { }
@@ -27,6 +28,11 @@ export class ImportLattesComponent implements OnInit {
           this.pesquisadorService.getPesquisadores()
           .subscribe(
             ps => { this.pesquisadores = ps; },
+            msg => { alert(msg.message); }
+          );
+          this.pesquisadorService.getCVdiff()
+          .subscribe(
+            cd => { this.cvDiff = cd; },
             msg => { alert(msg.message); }
           );
         } else {
@@ -52,6 +58,11 @@ export class ImportLattesComponent implements OnInit {
         ps => { this.pesquisadores = ps; },
         msg => { alert(msg.message); }
       );
+    this.pesquisadorService.getCVdiff()
+      .subscribe(
+        cd => { this.cvDiff = cd; },
+        msg => { alert(msg.message); }
+       );
   }
 
 }
