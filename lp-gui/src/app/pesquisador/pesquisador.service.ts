@@ -20,7 +20,7 @@ export class PesquisadorService {
     for(let i = 0; i < files.length; i++) {
       formData.append('lattesFiles', files[i]);
     }
-    
+
     return this.http.post<any>(this.taURL + '/pesquisador/adicionar', formData).pipe(
       retry(2),
       map(res => {
@@ -38,6 +38,20 @@ export class PesquisadorService {
       .pipe(
         retry(2)
       );
+  }
+
+  getCVdiff(): Observable<string> {
+    return this.http.get<string>(this.taURL + "/cvdiff/", {headers:this.headers})
+      .pipe(
+        retry(2)
+       );
+  }
+
+  getAuthorDiff(): Observable<string> {
+    return this.http.get<string>(this.taURL + "/authordiff/", {headers:this.headers})
+      .pipe(
+        retry(2)
+       );
   }
 
 }

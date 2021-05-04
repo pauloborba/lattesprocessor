@@ -14,6 +14,8 @@ import { Pesquisador } from '../common/pesquisador';
 
 var lpserver = express();
 let cadatroPesq = new CadastroDePesquisadores();
+let cvDiffResult: string = "";
+let authorDiffResult: string = "";
 const lattesFactory = new LattesFactory(cadatroPesq);
 
 // add services here
@@ -79,6 +81,8 @@ lpserver.post('/pesquisador/adicionar', upload.array('lattesFiles', 12), (req: e
   }
 
   if(!error) {
+    cvDiffResult = lattesFactory.cvDiff;
+    authorDiffResult = lattesFactory.authorDiff;
     res.send({
       success: 'arquivos foram importados com sucesso',
     })
@@ -94,6 +98,14 @@ lpserver.post('/pesquisador/adicionar', upload.array('lattesFiles', 12), (req: e
 
 lpserver.get('/pesquisadores/', (req: express.Request, res: express.Response) => {
   res.send(JSON.stringify(cadatroPesq.getPesquisadores()));
+});
+
+lpserver.get('/cvdiff/', (req: express.Request, res: express.Response) => {
+    res.send(JSON.stringify(cvDiffResult));
+});
+
+lpserver.get('/authordiff/', (req: express.Request, res: express.Response) => {
+    res.send(JSON.stringify(authorDiffResult));
 });
 
 lpserver.get('/estudos-comparativos/', (req: express.Request, res: express.Response) => {
