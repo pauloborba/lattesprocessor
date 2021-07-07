@@ -119,25 +119,34 @@ lpserver.get('/estudos-comparativos/', (req: express.Request, res: express.Respo
 
   pesquisadores.forEach((pesq: any) => {
     let sumPont = 0;
+    let aval = [0,0,0,0,0,0,0,0];
     pesq.publicacoes.forEach((publi: any) => {
       let currentPont = 0;
       let nota = qualisService.getAvaliacao(publi.periodico);
 
       if (nota == 'A1'){
+        aval[0]++;
         currentPont = pesos[0];
       } else if (nota == 'A2') {
+        aval[1]++;
         currentPont = pesos[1];
       } else if (nota == 'B1') {
+        aval[2]++;
         currentPont = pesos[2];
       } else if (nota == 'B2') {
+        aval[3]++;
         currentPont = pesos[3];
       } else if (nota == 'B3') {
+        aval[4]++;
         currentPont = pesos[4];
       } else if (nota == 'B4') {
+        aval[5]++;
         currentPont = pesos[5];
       } else if (nota == 'B5') {
+        aval[6]++;
         currentPont = pesos[6];
       } else if (nota == 'C') {
+        aval[7]++;
         currentPont = pesos[7];
       } else {
         currentPont = 0;
@@ -148,8 +157,8 @@ lpserver.get('/estudos-comparativos/', (req: express.Request, res: express.Respo
     ranking.push({
         pesquisador: pesq,
         pontos: sumPont,
+        avaliacoes: aval,
     })
-
   });
 
   ranking.sort((a: any, b: any) => {

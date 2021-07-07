@@ -67,5 +67,9 @@ export class estudoscomparativosComponent implements OnInit{
   setPadrao(): void {
     this.pesos = [1, 1, 1, 1, 1, 1, 1, 1];
   }
+
+  print() {
+    window.print();
+  }
 }
 

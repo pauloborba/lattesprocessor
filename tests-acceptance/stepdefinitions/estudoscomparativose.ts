@@ -58,6 +58,8 @@ defineSupportCode(function ({ Given, When, Then }) {
         await expect(lista[0].qtd.to.eventually.equal(Number(qtd1)));
         await expect(lista[1].nome.to.eventually.equal(<string>prof2));
         await expect(lista[1].qtd.to.eventually.equal(Number(qtd2)));
+        await $("a[name='qualis']").click();
+        await element(by.buttonText("Clear Qualis")).click();
     });
 
     When('O professor "([^\"]*)" tem "(\d*)" artigos “([^\"]*)”, "(\d*)" artigos “([^\"]*)” e "(\d*)" artigo “([^\"]*)”', async (prof, qtd1, peso1, qtd2, peso2, qtd3, peso3) => {

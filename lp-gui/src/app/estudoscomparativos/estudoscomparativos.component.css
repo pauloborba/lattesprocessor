@@ -10,3 +10,17 @@ input[id="pesoscheck"]:checked ~ .pesosmarcado {
   max-height: 100px; 
   overflow: visible;
 }
+
+.table-print {
+  display: none;
+}
+
+@media print {
+  .table-print {
+    display: block;
+  }
+
+  .view {
+    display: none;
+  }
+}
